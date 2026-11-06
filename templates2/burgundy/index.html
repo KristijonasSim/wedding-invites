@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wedding Invitation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;1,400&family=Corinthia:wght@400;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<script>
+/* =========================================================================
+   EDIT ONLY THIS BLOCK FOR EACH CLIENT
+   ========================================================================= */
+const CONFIG = {
+  bride: "Emma",
+  groom: "James",
+  dateISO: "2027-06-12T15:00:00",
+  dateShort: "06 · 12 · 2027",
+  dateText: "Saturday, June 12, 2027",
+  time: "3:00 PM",
+  venue: "Villa Serbelloni",
+  address: "Via Roma 1, Bellagio, Italy",
+  quote: "Two hearts, one story — and you are part of it.",
+  schedule: [["3:00 PM","Ceremony"],["4:00 PM","Cocktail hour"],["5:00 PM","Photo session"],["6:30 PM","Dinner reception"],["8:00 PM","Dance party"]],
+  details: [
+    ["Dress code", "Garden formal — soft, light colours welcome."],
+    ["Accommodation", "Rooms reserved at Hotel Belvedere under our names."],
+    ["Gifts", "Your presence is our present. A wishing well will be available."]
+  ],
+  rsvpDeadline: "May 1, 2027",
+  meals: ["Beef", "Fish", "Vegetarian"],
+  maxGuests: 4,
+  hashtag: "#EmmaAndJames2027",
+  music: "music.mp3",
+  rsvpUrl: "",
+  slideSeconds: 6,
+  // one photo per slide: cover, date, countdown, timeline, details, rsvp, closing
+  photos: ["photos/cover.jpg","photos/date.jpg","photos/countdown.jpg","photos/timeline.jpg","photos/details.jpg","photos/rsvp.jpg","photos/closing.jpg"]
+};
+</script>
+<style>
+  :root{
+    --paper:#f6efe4; --paper-ink:#3a2f27; --muted:#8b7b6c; --accent:#b8956a; --tint:rgba(60,40,20,.35);
+    --seal:radial-gradient(circle at 35% 30%,#d4b48a,#8f6b3f); --seal-ink:#fff6e6; --petal:#f3e3cf; --photo-filter:none;
+    --script:"Corinthia",cursive; --serif:"Bodoni Moda",Georgia,serif; --sans:"Montserrat",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#111;overflow:hidden}
+  body{font-family:var(--serif);color:#fff;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+  #bgblur{position:fixed;inset:-40px;background-size:cover;background-position:center;filter:blur(30px) brightness(.55) var(--photo-filter);transform:translateZ(0)}
+  @media (max-aspect-ratio:10/16){#bgblur{display:none}}
+  #stage{position:relative;height:100svh;max-width:min(100vw,calc(100svh * 9 / 16));margin:0 auto;overflow:hidden;background:#000;box-shadow:0 0 60px rgba(0,0,0,.5)}
+
+  /* slides */
+  .slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .8s ease,visibility .8s;will-change:opacity;contain:strict}
+  .slide.on{opacity:1;visibility:visible;z-index:2}
+  .bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:var(--photo-filter);transform:scale(1.02) translateZ(0);will-change:transform;backface-visibility:hidden}
+  .slide.on .bg{animation:kb var(--dur,6s) linear forwards}
+  @keyframes kb{from{transform:scale(1.02) translateZ(0)}to{transform:scale(1.12) translateZ(0)}}
+  .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35) 0%,transparent 28%,transparent 55%,rgba(0,0,0,.55) 100%),var(--tint);mix-blend-mode:normal}
+  .content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:70px 26px 40px;text-align:center}
+
+  /* entrance animation for children */
+  .slide .a{opacity:0;transform:translateY(18px)}
+  .slide.on .a{animation:up .9s ease forwards}
+  .slide.on .a:nth-child(2){animation-delay:.25s}.slide.on .a:nth-child(3){animation-delay:.5s}.slide.on .a:nth-child(4){animation-delay:.75s}.slide.on .a:nth-child(5){animation-delay:1s}
+  @keyframes up{to{opacity:1;transform:none}}
+  .slide.off .a{opacity:1;transform:none}
+  .slide.off .bg{transform:scale(1.12) translateZ(0)}
+
+  /* torn paper card */
+  .paper{position:relative;width:100%;max-width:360px;background:var(--paper);color:var(--paper-ink);padding:44px 26px 40px;
+         background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);background-size:5px 5px}
+  .eyebrow{font-family:var(--sans);font-size:10.5px;letter-spacing:.34em;text-transform:uppercase}
+  .paper .eyebrow{color:var(--accent)}
+  .script{font-family:var(--script);font-weight:400;line-height:.9}
+  .paper h2{font-family:var(--script);font-weight:400;font-size:62px;line-height:.9;color:var(--paper-ink);margin:6px 0 14px}
+  .paper p{font-size:15px;line-height:1.6}
+  .rule{width:46px;height:1px;background:var(--accent);margin:16px auto}
+  .muted{color:var(--muted)}
+  .btn{display:inline-block;margin-top:16px;font-family:var(--sans);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;padding:12px 24px;border:1px solid var(--accent);color:var(--paper-ink);background:transparent;text-decoration:none;cursor:pointer}
+  .btn.solid{background:var(--accent);color:var(--paper);border-color:var(--accent)}
+
+  /* cover */
+  .cover-names{font-family:var(--script);font-size:clamp(76px,24vw,112px);line-height:.85;text-shadow:0 4px 30px rgba(0,0,0,.35)}
+  .cover-names .amp{display:block;font-size:.45em;color:var(--petal);margin:4px 0}
+  .cover .eyebrow{color:#fff;opacity:.9}
+  .bigdate{font-family:var(--serif);font-size:22px;letter-spacing:.18em;margin-top:18px}
+
+  /* date slide */
+  .daterow{display:flex;align-items:center;justify-content:center;gap:14px;margin:8px 0 4px;font-family:var(--sans);font-size:11px;letter-spacing:.24em;text-transform:uppercase}
+  .daterow b{font-family:var(--serif);font-weight:400;font-size:46px;letter-spacing:0;line-height:1}
+  .daterow span{border-top:1px solid var(--accent);border-bottom:1px solid var(--accent);padding:6px 4px;min-width:74px}
+
+  /* countdown */
+  .count{display:flex;justify-content:center;gap:14px;margin:6px 0 4px}
+  .count b{display:block;font-family:var(--serif);font-weight:400;font-size:40px;line-height:1}
+  .count span{font-family:var(--sans);font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+
+  /* timeline */
+  .tl{text-align:left;max-width:250px;margin:4px auto 0;position:relative}
+  .tl::before{content:"";position:absolute;left:78px;top:8px;bottom:8px;width:1px;background:var(--accent);opacity:.6}
+  .tl div{display:flex;gap:26px;align-items:baseline;padding:7px 0;position:relative}
+  .tl i{font-style:normal;width:62px;text-align:right;font-family:var(--sans);font-size:11px;letter-spacing:.06em;color:var(--accent);flex:none}
+  .tl i::after{content:"";position:absolute;left:75px;top:13px;width:7px;height:7px;border-radius:50%;background:var(--paper);border:1px solid var(--accent)}
+  .tl em{font-style:normal;font-size:16px}
+
+  /* details */
+  .det{margin:10px 0}
+  .det h3{font-family:var(--sans);font-weight:500;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:3px}
+
+  /* rsvp */
+  form{display:grid;gap:10px;text-align:left;margin-top:6px}
+  input,select,textarea{width:100%;font:inherit;font-size:15px;color:var(--paper-ink);background:transparent;border:0;border-bottom:1px solid color-mix(in srgb,var(--paper-ink) 25%,transparent);padding:8px 2px;outline:none;border-radius:0}
+  input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+  select option{color:#222}
+  .choice{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .choice input{position:absolute;opacity:0;pointer-events:none}
+  .choice label{text-align:center;padding:10px 4px;border:1px solid var(--accent);font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+  .choice input:checked+label{background:var(--accent);color:var(--paper)}
+  .hide{display:none!important}
+
+  /* closing + seal */
+  .seal{width:92px;height:92px;border-radius:50%;background:var(--seal);color:var(--seal-ink);display:flex;align-items:center;justify-content:center;font-family:var(--script);font-size:38px;
+        box-shadow:0 8px 24px rgba(0,0,0,.35),inset 0 -5px 12px rgba(0,0,0,.25);position:relative}
+  .seal::before{content:"";position:absolute;inset:7px;border-radius:50%;border:1px dashed rgba(255,255,255,.35)}
+
+  /* progress bars */
+  #bars{position:absolute;top:10px;left:10px;right:10px;display:flex;gap:4px;z-index:20}
+  #bars div{flex:1;height:2.5px;background:rgba(255,255,255,.35);border-radius:2px;overflow:hidden}
+  #bars i{display:block;height:100%;width:100%;background:#fff;transform:scaleX(0);transform-origin:left;will-change:transform}
+  #hdr{position:absolute;top:20px;left:14px;right:14px;z-index:20;display:flex;justify-content:space-between;align-items:center;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;text-shadow:0 1px 6px rgba(0,0,0,.4)}
+  #hdr button{background:none;border:0;color:#fff;cursor:pointer;width:34px;height:34px;display:flex;align-items:center;justify-content:center}
+  #hdr svg{width:18px;height:18px;fill:#fff}
+  .tap{position:absolute;top:60px;bottom:0;width:32%;z-index:10}
+  .tap.l{left:0}.tap.r{right:0}
+
+  /* intro (tap to open) */
+  #intro{position:absolute;inset:0;z-index:30;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;background:var(--paper);color:var(--paper-ink);text-align:center;transition:opacity 1s,visibility 1s;
+         background-image:radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);background-size:5px 5px}
+  #intro.gone{opacity:0;visibility:hidden}
+  #intro .seal{width:120px;height:120px;font-size:48px;cursor:pointer;animation:pulse 2.4s ease-in-out infinite}
+  @keyframes pulse{50%{transform:scale(1.06)}}
+  #intro .script{font-size:54px}
+
+  canvas#petals{position:absolute;inset:0;width:100%;height:100%;z-index:15;pointer-events:none;transform:translateZ(0)}
+  .hint{font-family:var(--sans);font-size:10px;letter-spacing:.3em;text-transform:uppercase;opacity:.75}
+  /* static mode for previews / video frames */
+  .static .slide{transition:none}.static .slide .a{opacity:1;transform:none;animation:none!important}.static .slide.on .bg{animation:none;transform:scale(1.06)}
+  .video #hdr,.video #bars,.video .hint,.video #replay{display:none!important}
+  /* ===== THEME ===== */
+:root{--paper:#f7f0ea;--paper-ink:#3c1d22;--muted:#86666a;--accent:#7b1e2b;--tint:rgba(80,10,20,.3);
+  --seal:radial-gradient(circle at 35% 30%,#a8343f,#5a121c);--seal-ink:#f7e6e6;--petal:#e9c6c6}
+</style>
+</head>
+<body>
+<div id="bgblur"></div>
+<div id="stage">
+  <div id="intro">
+    <p class="eyebrow" style="color:var(--accent)">You are invited</p>
+    <div class="seal" id="openSeal">E&amp;J</div>
+    <p class="script" id="introNames"></p>
+    <p class="hint">Tap the seal to open</p>
+  </div>
+
+  <div id="bars"></div>
+  <div id="hdr"><span id="hdrNames"></span><span><button id="mbtn" aria-label="music"><svg viewBox="0 0 24 24"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg></button></span></div>
+  <canvas id="petals"></canvas>
+
+  <!-- 1 cover -->
+  <section class="slide cover"><div class="bg"></div><div class="shade"></div>
+    <div class="content" style="justify-content:flex-end;padding-bottom:90px">
+      <p class="eyebrow a">We're getting married</p>
+      <h1 class="cover-names a"><span data-k="bride"></span><span class="amp">&amp;</span><span data-k="groom"></span></h1>
+      <p class="bigdate a" data-k="dateShort"></p>
+      <p class="hint a" style="margin-top:26px">Tap to continue →</p>
+    </div></section>
+
+  <!-- 2 date & venue -->
+  <section class="slide"><div class="bg"></div><div class="shade"></div>
+    <div class="content"><div class="paper torn a">
+      <p class="eyebrow">Together with their families</p>
+      <h2><span data-k="bride"></span> &amp; <span data-k="groom"></span></h2>
+      <p class="muted" style="font-style:italic">invite you to celebrate their wedding</p>
+      <div class="daterow" style="margin-top:18px"><span id="dWeek"></span><b id="dDay"></b><span id="dMonth"></span></div>
+      <p class="eyebrow" style="color:var(--paper-ink);margin-top:10px" id="dYearTime"></p>
+      <div class="rule"></div>
+      <p style="font-size:19px" data-k="venue"></p>
+      <p class="muted" data-k="address"></p>
+      <a class="btn" id="mapBtn" target="_blank" rel="noopener">Google Maps</a>
+    </div></div></section>
+
+  <!-- 3 countdown -->
+  <section class="slide"><div class="bg"></div><div class="shade"></div>
+    <div class="content" style="justify-content:flex-end;padding-bottom:70px"><div class="paper torn a">
+      <p class="eyebrow">Counting down</p>
+      <h2>Until I do</h2>
+      <div class="count"><div><b id="cd-d">0</b><span>Days</span></div><div><b id="cd-h">0</b><span>Hours</span></div><div><b id="cd-m">0</b><span>Min</span></div><div><b id="cd-s">0</b><span>Sec</span></div></div>
+      <div class="rule"></div>
+      <p style="font-style:italic" data-k="quote"></p>
+    </div></div></section>
+
+  <!-- 4 timeline -->
+  <section class="slide"><div class="bg"></div><div class="shade"></div>
+    <div class="content"><div class="paper torn a">
+      <p class="eyebrow">The wedding day</p>
+      <h2>Timeline</h2>
+      <div class="tl" id="tl"></div>
+    </div></div></section>
+
+  <!-- 5 details -->
+  <section class="slide"><div class="bg"></div><div class="shade"></div>
+    <div class="content"><div class="paper torn a">
+      <p class="eyebrow">Good to know</p>
+      <h2>The details</h2>
+      <div id="det"></div>
+    </div></div></section>
+
+  <!-- 6 rsvp -->
+  <section class="slide rsvp"><div class="bg"></div><div class="shade"></div>
+    <div class="content"><div class="paper torn a">
+      <p class="eyebrow">Kindly reply by <span data-k="rsvpDeadline"></span></p>
+      <h2>RSVP</h2>
+      <form id="f">
+        <input name="name" placeholder="Full name" required autocomplete="name">
+        <div class="choice">
+          <input type="radio" name="attending" id="ay" value="Yes" required><label for="ay">Joyfully accept</label>
+          <input type="radio" name="attending" id="an" value="No"><label for="an">Sadly decline</label>
+        </div>
+        <select name="guests" id="guests" class="yes"></select>
+        <select name="meal" id="meal" class="yes"></select>
+        <textarea name="message" rows="2" placeholder="A note for the couple"></textarea>
+        <button class="btn solid" type="submit" id="send">Send reply</button>
+      </form>
+      <div id="thanks" class="hide"><div class="rule"></div><p style="font-size:18px" id="thx"></p></div>
+    </div></div></section>
+
+  <!-- 7 closing -->
+  <section class="slide"><div class="bg"></div><div class="shade"></div>
+    <div class="content" style="gap:18px">
+      <div class="seal a" id="seal2">E&amp;J</div>
+      <p class="eyebrow a">We can't wait to celebrate with you</p>
+      <h1 class="cover-names a" style="font-size:clamp(60px,18vw,88px)"><span data-k="bride"></span> &amp; <span data-k="groom"></span></h1>
+      <p class="eyebrow a" data-k="hashtag"></p>
+      <button class="btn a" id="replay" style="color:#fff;border-color:#fff">Watch again</button>
+    </div></section>
+
+  <div class="tap l" id="prev"></div><div class="tap r" id="next"></div>
+</div>
+<audio id="audio" loop preload="none"></audio>
+
+<script>
+(function(){
+  const C = CONFIG, $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const params = new URLSearchParams(location.search);
+  const mono = `${C.bride[0]}&${C.groom[0]}`;
+  if (params.has("static")) document.documentElement.classList.add("static");
+  if (params.has("video")) document.documentElement.classList.add("video");
+
+  $$("[data-k]").forEach(el => el.textContent = C[el.dataset.k] ?? "");
+  document.title = `${C.bride} & ${C.groom} — Wedding Invitation`;
+  $("#openSeal").textContent = mono; $("#seal2").textContent = mono;
+  $("#introNames").textContent = `${C.bride} & ${C.groom}`;
+  $("#hdrNames").textContent = `${C.bride} & ${C.groom}`;
+
+  const d = new Date(C.dateISO);
+  $("#dWeek").textContent = d.toLocaleDateString("en-US", { weekday: "long" });
+  $("#dDay").textContent = d.getDate();
+  $("#dMonth").textContent = d.toLocaleDateString("en-US", { month: "long" });
+  $("#dYearTime").textContent = `${d.getFullYear()} · ${C.time}`;
+  $("#mapBtn").href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(C.venue + ", " + C.address);
+
+  C.schedule.forEach(([t, e]) => $("#tl").insertAdjacentHTML("beforeend", `<div><i>${esc(t)}</i><em>${esc(e)}</em></div>`));
+  C.details.forEach(([h, p]) => $("#det").insertAdjacentHTML("beforeend", `<div class="det"><h3>${esc(h)}</h3><p>${esc(p)}</p></div>`));
+  $("#guests").innerHTML = Array.from({ length: C.maxGuests }, (_, i) => `<option value="${i + 1}">${i + 1} guest${i ? "s" : ""}</option>`).join("");
+  $("#meal").innerHTML = C.meals.map(m => `<option>${esc(m)}</option>`).join("");
+  $$('input[name="attending"]').forEach(r => r.onchange = () => $$(".yes").forEach(el => el.classList.toggle("hide", $("#an").checked)));
+
+  // torn paper edges (random each load)
+  const torn = () => {
+    const pts = [], n = 22;
+    for (let i = 0; i <= n; i++) pts.push(`${(i / n * 100).toFixed(1)}% ${(Math.random() * 2.2).toFixed(2)}%`);
+    for (let i = n; i >= 0; i--) pts.push(`${(i / n * 100).toFixed(1)}% ${(100 - Math.random() * 2.2).toFixed(2)}%`);
+    return `polygon(${pts.join(",")})`;
+  };
+  $$(".torn").forEach(el => el.style.clipPath = torn());
+
+  // slides
+  const slides = $$(".slide");
+  slides.forEach((s, i) => { const p = C.photos[i] || C.photos[0]; s.querySelector(".bg").style.backgroundImage = `url("${p}")`; s.style.setProperty("--dur", (C.slideSeconds + 1) + "s"); });
+  $("#bars").innerHTML = slides.map(() => "<div><i></i></div>").join("");
+  const fills = $$("#bars i");
+  let cur = 0, t0 = 0, elapsed = 0, paused = true, started = false;
+  const DUR = C.slideSeconds * 1000;
+
+  function show(i) {
+    const prev = cur;
+    cur = Math.max(0, Math.min(slides.length - 1, i));
+    if (prev !== cur && slides[prev].classList.contains("on")) {
+      const old = slides[prev]; old.classList.add("off");
+      clearTimeout(old._t); old._t = setTimeout(() => old.classList.remove("off"), 900);
+    }
+    slides.forEach((s, k) => s.classList.toggle("on", k === cur));
+    fills.forEach((f, k) => f.style.transform = `scaleX(${k < cur ? 1 : 0})`);
+    if (innerWidth / innerHeight > .62) $("#bgblur").style.backgroundImage = `url("${C.photos[cur] || C.photos[0]}")`;
+    elapsed = 0; t0 = performance.now();
+    // RSVP and last slide wait for the guest
+    paused = !started || slides[cur].classList.contains("rsvp") || cur === slides.length - 1;
+    if (cur === slides.length - 1) fills[cur].style.transform = "scaleX(1)";
+  }
+  function loop(now) {
+    if (!paused) {
+      elapsed += now - t0;
+      fills[cur].style.transform = `scaleX(${Math.min(1, elapsed / DUR)})`;
+      if (elapsed >= DUR) show(cur + 1);
+    }
+    t0 = now; requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+  $("#next").onclick = () => show(cur + 1);
+  $("#prev").onclick = () => show(cur - 1);
+  $("#replay").onclick = () => show(0);
+  // hold to pause
+  let held = false;
+  $("#stage").addEventListener("pointerdown", e => { if (e.target.closest("form,a,button")) return; held = !paused; if (held) paused = true; });
+  $("#stage").addEventListener("pointerup", () => { if (held) { paused = false; held = false; } });
+  // swipe
+  let sx = null;
+  $("#stage").addEventListener("touchstart", e => sx = e.touches[0].clientX, { passive: true });
+  $("#stage").addEventListener("touchend", e => { if (sx === null) return; const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 50) show(cur + (dx < 0 ? 1 : -1)); sx = null; });
+
+  // countdown
+  const tick = () => { let s = Math.max(0, Math.floor((d - Date.now()) / 1000));
+    $("#cd-d").textContent = Math.floor(s / 86400); s %= 86400;
+    $("#cd-h").textContent = String(Math.floor(s / 3600)).padStart(2, "0"); s %= 3600;
+    $("#cd-m").textContent = String(Math.floor(s / 60)).padStart(2, "0"); $("#cd-s").textContent = String(s % 60).padStart(2, "0"); };
+  tick(); setInterval(tick, 1000);
+
+  // music
+  const audio = $("#audio"); if (C.music) audio.src = C.music;
+  audio.onerror = () => $("#mbtn").classList.add("hide");
+  $("#mbtn").onclick = () => audio.paused ? audio.play().catch(() => {}) : audio.pause();
+  if (!C.music) $("#mbtn").classList.add("hide");
+
+  // open
+  function open() { $("#intro").classList.add("gone"); started = true; show(0); if (C.music) audio.play().catch(() => {}); }
+  $("#openSeal").onclick = open;
+  if (params.has("open")) open();
+  if (params.has("slide")) { started = true; $("#intro").classList.add("gone"); show(+params.get("slide")); paused = true; }
+  if (!params.has("open") && !params.has("slide")) show(0);
+
+  // RSVP
+  $("#f").addEventListener("focusin", () => paused = true);
+  $("#f").onsubmit = async e => {
+    e.preventDefault(); const fd = new FormData(e.target); $("#send").disabled = true; $("#send").textContent = "Sending…";
+    try { if (C.rsvpUrl) await fetch(C.rsvpUrl, { method: "POST", mode: "no-cors", body: fd }); } catch (_) {}
+    $("#thx").textContent = fd.get("attending") === "Yes" ? `Thank you, ${fd.get("name")}! We can't wait to see you.` : `Thank you, ${fd.get("name")}. You'll be missed!`;
+    e.target.classList.add("hide"); $("#thanks").classList.remove("hide");
+    setTimeout(() => show(cur + 1), 2500);
+  };
+
+  // petals
+  const cv = $("#petals"), cx = cv.getContext("2d"); let W, H, P = [];
+  const petalColor = getComputedStyle(document.documentElement).getPropertyValue("--petal").trim() || "#fff";
+  const DPR = Math.min(devicePixelRatio || 1, 1.5);
+  const size = () => { W = cv.width = cv.offsetWidth * DPR; H = cv.height = cv.offsetHeight * DPR; };
+  size(); addEventListener("resize", size);
+  for (let i = 0; i < 16; i++) P.push({ x: Math.random(), y: Math.random(), r: 4 + Math.random() * 6, s: .0006 + Math.random() * .0012, w: Math.random() * 6.28, a: Math.random() * 6.28 });
+  (function draw() {
+    if (document.hidden) return requestAnimationFrame(draw);
+    cx.clearRect(0, 0, W, H);
+    if (started) P.forEach(p => {
+      p.y += p.s; p.w += .02; p.a += .01; if (p.y > 1.05) { p.y = -.05; p.x = Math.random(); }
+      const x = (p.x + Math.sin(p.w) * .03) * W, y = p.y * H, r = p.r * DPR;
+      cx.save(); cx.translate(x, y); cx.rotate(p.a); cx.globalAlpha = .75; cx.fillStyle = petalColor;
+      cx.beginPath(); cx.ellipse(0, 0, r, r * .55, 0, 0, 6.28); cx.fill(); cx.restore();
+    });
+    requestAnimationFrame(draw);
+  })();
+})();
+</script>
+<script>/* hide music controls when the song file is missing */
+(function(){var a=document.getElementById('audio');if(!a||!a.getAttribute('src'))return;var p=new Audio();p.preload='metadata';
+p.onerror=function(){['music','mbtn','np'].forEach(function(id){var e=document.getElementById(id);if(e)e.style.setProperty('display','none','important');});};p.src=a.getAttribute('src');})();</script>
+</body>
+</html>
