@@ -62,8 +62,8 @@ const CONFIG = {
   /* ===== INTRO: menu cover opens ===== */
   #intro{position:fixed;inset:0;z-index:50;background:radial-gradient(ellipse at 50% 30%,color-mix(in srgb,var(--bar) 75%,#fff),var(--bar) 70%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;perspective:1800px;transition:opacity .9s ease,visibility 1.1s}
   #intro.gone{opacity:0;visibility:hidden}
-  .book{position:relative;width:min(74vw,310px);aspect-ratio:.66;cursor:pointer;transform-style:preserve-3d;transition:transform 1.3s cubic-bezier(.6,0,.3,1)}
-  #intro.open .book{transform:scale(1.04)}
+  .book{position:relative;width:min(74vw,310px);aspect-ratio:.66;cursor:pointer;transform-style:preserve-3d}
+  #intro.open .book{transform:none}
   .page{position:absolute;inset:0;background:var(--card);box-shadow:0 30px 60px rgba(0,0,0,.45);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}
   .page::before{content:"";position:absolute;inset:12px;border:1px solid var(--gold)}
   .page .nm{font-family:var(--script);font-size:clamp(40px,11vw,52px);line-height:1}
@@ -225,7 +225,7 @@ window.EVT = (t, time, p, a, map) => `<div class="ev"><h3>${t}</h3><p class="p">
   const C = CONFIG, $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
   const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const L = C.locale || "en-US", d = new Date(C.dateISO), pad = n => String(n).padStart(2, "0");
-  const mono = C.bride[0] + C.groom[0];
+  const mono = C.bride[0] + (C.groom ? C.groom[0] : "");
   const fmt = {
     weekday: { weekday: "long" }, day: { day: "numeric" }, month: { month: "long" }, mon: { month: "short" }, year: { year: "numeric" },
     long: { weekday: "long", month: "long", day: "numeric", year: "numeric" }, short: { month: "long", day: "numeric", year: "numeric" },
@@ -235,8 +235,8 @@ window.EVT = (t, time, p, a, map) => `<div class="ev"><h3>${t}</h3><p class="p">
 
   document.title = `${C.bride} & ${C.groom} — ${C.titleWord || "Wedding Invitation"}`;
   $$("[data-k]").forEach(el => el.textContent = C[el.dataset.k] ?? "");
-  $$("[data-names]").forEach(el => el.textContent = `${C.bride} ${el.dataset.names || "&"} ${C.groom}`);
-  $$("[data-mono]").forEach(el => el.textContent = el.dataset.mono ? C.bride[0] + el.dataset.mono + C.groom[0] : mono);
+  $$("[data-names]").forEach(el => el.textContent = C.groom ? `${C.bride} ${el.dataset.names || "&"} ${C.groom}` : C.bride);
+  $$("[data-mono]").forEach(el => el.textContent = el.dataset.mono && C.groom ? C.bride[0] + el.dataset.mono + C.groom[0] : mono);
   $$("[data-date]").forEach(el => {
     const k = el.dataset.date;
     el.textContent = k === "num" ? `${pad(d.getMonth() + 1)}.${pad(d.getDate())}.${String(d.getFullYear()).slice(2)}` : d.toLocaleString(L, fmt[k]);
