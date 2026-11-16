@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wedding Invitation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&family=Caveat:wght@400;500&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Courier+Prime&display=swap" rel="stylesheet">
+<script>
+/* =========================================================================
+   EDIT ONLY THIS BLOCK FOR EACH CLIENT
+   ========================================================================= */
+const CONFIG = {
+  bride: "Emma",
+  groom: "James",
+  dateISO: "2027-06-12T15:00:00",
+  intro: "We have something we have been dying to tell you, and we wanted to write it down properly.",
+  venue: "Villa Serbelloni",
+  address: "Via Roma 1, Bellagio, Italy",
+  events: [
+    ["The Ceremony", "3:00 PM", "Villa Serbelloni Chapel", "Via Roma 1, Bellagio, Italy"],
+    ["The Reception", "6:00 PM", "Lemon Terrace", "Via Roma 1, Bellagio, Italy"]
+  ],
+  schedule: [
+    ["3:00 PM", "Ceremony"],
+    ["4:00 PM", "Cocktail hour"],
+    ["6:00 PM", "Dinner"],
+    ["8:30 PM", "First dance"],
+    ["11:30 PM", "Farewell"]
+  ],
+  story: "It started with a borrowed umbrella and a coffee that turned into dinner. Seven years later we are saying yes to forever, and we would love you by our side.",
+  dressCode: "Garden formal",
+  dressNote: "Light suits and summer dresses. Comfortable shoes for the grass.",
+  stay: "A block of rooms is held at Grand Hotel Villa Serbelloni until April 1st.",
+  rsvpDeadline: "May 1, 2027",
+  meals: ["Beef", "Fish", "Vegetarian"],
+  maxGuests: 2,
+  hashtag: "#EmmaAndJames",
+  music: "music.mp3",
+  rsvpUrl: "",
+  salutation: "Dear friends and family,",
+  city: "BELLAGIO",
+  caption: "where it all began",
+  letter: ["Seven years ago a borrowed umbrella turned into a coffee, and the coffee turned into dinner. We have been inseparable ever since.", "Now we are getting married, and it would not feel complete without the people we love most around us.", "There will be good food, a little too much wine and a lot of dancing. Everything you need to know is below. We cannot wait to see you there."],
+  photos: {"couple": "photos/couple.jpg"}
+};
+</script>
+<style>
+  :root{--bg:#d9d2c5;--paper:#fbf7ee;--ink:#23395d;--text:#2f2a24;--muted:#7d756a;--accent:#9c3d33;--line:#cfdbe8;--btn-ink:#fff;
+    --sig:"Mrs Saint Delafield",cursive;--hand:"Caveat",cursive;--serif:"Cormorant Garamond",Georgia,serif;--type:"Courier Prime",ui-monospace,monospace}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;overflow-x:hidden}
+  body{background:var(--bg);color:var(--text);font-family:var(--serif);font-size:19px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  body.locked{overflow:hidden}
+  .rv{opacity:0;transform:translateY(20px);transition:opacity 1.1s ease,transform 1.1s ease}.rv.in{opacity:1;transform:none}
+  .hide{display:none!important}
+  .type{font-family:var(--type);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .hand{font-family:var(--hand);color:var(--ink)}
+  .sig{font-family:var(--sig);color:var(--ink);font-weight:400;line-height:1.1}
+  .paper{background:var(--paper);box-shadow:0 2px 3px rgba(0,0,0,.06),0 24px 50px rgba(40,30,20,.16);position:relative}
+  .paper::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.6;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.04' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .42 0 0 0 0 .3 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+  /* ===== INTRO: tri-fold letter ===== */
+  #intro{position:fixed;inset:0;z-index:50;background:inherit;background-color:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;overflow:hidden;transition:opacity 1s ease,visibility 1.2s}
+  #intro.gone{opacity:0;visibility:hidden}
+  .letter{width:min(86vw,370px);height:min(118vw,510px);perspective:1400px;position:relative;cursor:pointer;transition:transform 1s ease}
+  .letter .pane{position:absolute;left:0;right:0;height:33.34%;transform-style:preserve-3d;transition:transform 1.1s cubic-bezier(.5,0,.3,1)}
+  .letter .p1{top:0;transform-origin:50% 100%;transform:rotateX(-178deg);z-index:3;transition-delay:.1s}
+  .letter .p2{top:33.33%;z-index:1}
+  .letter .p3{top:66.66%;transform-origin:50% 0;transform:rotateX(178deg);z-index:2;transition-delay:.75s}
+  .pane .f,.pane .b{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--paper);overflow:hidden}
+  .pane .b{transform:rotateX(180deg);background:color-mix(in srgb,var(--paper) 92%,#8a7a60);box-shadow:inset 0 0 30px rgba(0,0,0,.06)}
+  .pane .f{box-shadow:inset 0 0 20px rgba(0,0,0,.03)}
+  .pane .in{position:absolute;left:0;right:0;height:300%;padding:30px 28px}
+  .p1 .in{top:0}.p2 .in{top:-100%}.p3 .in{top:-200%}
+  .letter .seal{position:absolute;left:50%;top:50%;width:70px;height:70px;margin:-35px 0 0 -35px;border-radius:50%;z-index:5;
+    background:radial-gradient(circle at 35% 30%,color-mix(in srgb,var(--accent) 70%,#fff),var(--accent) 60%,color-mix(in srgb,var(--accent) 70%,#000));
+    display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--sig);font-size:32px;box-shadow:0 4px 12px rgba(0,0,0,.3);transition:opacity .4s,transform .4s}
+  .letter .addr{position:absolute;left:0;right:0;top:66.66%;height:33.33%;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .3s}
+  .letter .addr .hand{font-size:30px}
+  #intro.open .seal{opacity:0;transform:scale(.6)}
+  #intro.open .addr{opacity:0}
+  #intro.open .p1,#intro.open .p3{transform:rotateX(0)}
+  .wr{font-family:var(--hand);color:var(--ink);font-size:23px;line-height:1.35}
+  .wr p{margin-bottom:10px}
+  .wr .ink{-webkit-mask:linear-gradient(180deg,#000 45%,transparent 55%) 0 100%/100% 220% no-repeat;mask:linear-gradient(180deg,#000 45%,transparent 55%) 0 100%/100% 220% no-repeat}
+  #intro.open .wr .ink{animation:write 3.2s linear 1.6s forwards}
+  @keyframes write{to{-webkit-mask-position:0 0;mask-position:0 0}}
+  .wr .sig{font-size:44px;margin-top:4px}
+  .tapnote{font-family:var(--type);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--text);opacity:.7;animation:blink 2s ease-in-out infinite}
+  @keyframes blink{50%{opacity:.25}}
+  .cont{opacity:0;pointer-events:none;transition:opacity .8s ease}
+  #intro.open .tapnote{display:none}
+  #intro.open .cont{opacity:1;pointer-events:auto;transition-delay:4.6s}
+
+  /* ===== PAGE ===== */
+  main{max-width:640px;margin:0 auto;padding:30px 16px 0}
+  .sheet{padding:56px 30px 46px;text-align:center}
+  .sheet + .sheet{margin-top:34px}
+  .tilt-l{transform:rotate(-.8deg)}.tilt-r{transform:rotate(.7deg)}
+  .rv.tilt-l.in{transform:rotate(-.8deg)}.rv.tilt-r.in{transform:rotate(.7deg)}
+  .hero h1{font-family:var(--sig);font-weight:400;font-size:clamp(66px,19vw,108px);line-height:1;color:var(--ink);margin:16px 0 4px}
+  .hero .date{font-family:var(--type);font-size:14px;letter-spacing:.2em;text-transform:uppercase;margin-top:14px}
+  .hero .intro{font-style:italic;color:var(--muted);max-width:420px;margin:0 auto}
+  .postmark{width:120px;height:120px;border:2px solid var(--accent);border-radius:50%;margin:24px auto 0;color:var(--accent);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--type);font-size:10px;letter-spacing:.14em;transform:rotate(-10deg);opacity:.85;position:relative}
+  .postmark::before{content:"";position:absolute;inset:6px;border:1px solid currentColor;border-radius:50%}
+  .postmark b{font-size:22px;letter-spacing:0;margin:2px 0}
+  .lined{background-image:repeating-linear-gradient(180deg,transparent 0 33px,var(--line) 33px 34px);background-position:0 8px}
+  .letterbody{text-align:left;font-family:var(--hand);font-size:25px;line-height:34px;color:var(--ink)}
+  .letterbody .sig{font-size:48px;line-height:1.2;margin-top:6px}
+  .pinned{position:relative;width:min(300px,76vw);margin:10px auto 30px;background:#fff;padding:12px 12px 46px;transform:rotate(2deg);box-shadow:0 14px 30px rgba(0,0,0,.15)}
+  .pinned .ph{aspect-ratio:4/5;background-size:cover;background-position:center}
+  .pinned .cap{position:absolute;left:0;right:0;bottom:8px;font-family:var(--hand);font-size:24px;color:#444;text-align:center}
+  .clip{position:absolute;top:-22px;left:30px;width:22px;height:62px;border:3px solid #9a9a9a;border-radius:12px;border-bottom-color:transparent;transform:rotate(-8deg)}
+  .clip::after{content:"";position:absolute;left:3px;right:3px;top:6px;height:40px;border:3px solid #9a9a9a;border-radius:9px;border-top-color:transparent}
+  h2{font-family:var(--sig);font-weight:400;font-size:clamp(50px,13vw,66px);line-height:1.1;color:var(--ink);margin:4px 0 20px}
+  .cd{display:flex;justify-content:center;gap:clamp(12px,5vw,30px)}
+  .cd b{display:block;font-family:var(--hand);font-weight:500;font-size:46px;line-height:1;color:var(--ink)}
+  .cd span{font-family:var(--type);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+
+  .evs{display:grid;gap:20px}
+  .ev{background:var(--paper);border:1px solid color-mix(in srgb,var(--muted) 30%,transparent);display:grid;grid-template-columns:1fr 1px 1fr;gap:14px;padding:20px 18px;text-align:left;position:relative;box-shadow:0 10px 24px rgba(0,0,0,.06)}
+  .ev:nth-child(odd){transform:rotate(-.6deg)}.ev:nth-child(even){transform:rotate(.6deg)}
+  .ev .div{background:color-mix(in srgb,var(--muted) 35%,transparent)}
+  .ev h3{font-family:var(--type);font-weight:400;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+  .ev .t{font-family:var(--hand);font-size:34px;line-height:1;color:var(--ink);margin-top:6px}
+  .ev .p{font-family:var(--hand);font-size:24px;line-height:1.1;color:var(--ink)}
+  .ev .a{font-size:15px;color:var(--muted);margin:4px 0 10px}
+  .ev .stamp{position:absolute;right:12px;top:-12px;width:44px;height:54px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--sig);font-size:24px;outline:2px dotted var(--paper);outline-offset:-5px;box-shadow:0 0 0 3px var(--paper),0 4px 10px rgba(0,0,0,.15);transform:rotate(6deg)}
+  .btn{display:inline-block;font-family:var(--type);font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:11px 20px;border:1.5px solid var(--ink);color:var(--ink);background:none;text-decoration:none;cursor:pointer}
+  .btn.solid{background:var(--ink);color:var(--paper)}
+
+  .sched{max-width:400px;margin:0 auto;text-align:left}
+  .sched div{display:flex;gap:18px;align-items:baseline;padding:4px 0}
+  .sched b{font-family:var(--type);font-weight:400;font-size:13px;color:var(--accent);width:84px;flex:none}
+  .sched span{font-family:var(--hand);font-size:28px;color:var(--ink)}
+  .ps{text-align:left}
+  .ps p{margin-bottom:18px}
+  .ps b{font-family:var(--hand);font-weight:500;font-size:28px;color:var(--accent);margin-right:6px}
+
+  .rsvp{text-align:left}
+  form{display:grid;gap:12px;margin-top:6px}
+  .fl{font-family:var(--type);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  input,select,textarea{width:100%;font-family:var(--hand);font-size:26px;color:var(--ink);background:transparent;border:0;border-bottom:1.5px solid var(--line);padding:2px 2px;border-radius:0;outline:none}
+  textarea{line-height:34px;background-image:repeating-linear-gradient(180deg,transparent 0 33px,var(--line) 33px 34px);border:0}
+  select option{font-family:var(--serif);font-size:16px}
+  .ck{display:flex;flex-direction:column;gap:4px}
+  .ck label{display:flex;align-items:center;gap:12px;font-family:var(--hand);font-size:26px;color:var(--ink);cursor:pointer}
+  .ck input{position:absolute;opacity:0}
+  .ck i{width:24px;height:24px;border:1.5px solid var(--ink);flex:none;position:relative}
+  .ck input:checked+i::after{content:"✓";position:absolute;left:2px;top:-14px;font-family:var(--hand);font-size:36px;color:var(--accent)}
+  #thx{font-family:var(--hand);font-size:30px;color:var(--ink);text-align:center}
+  footer{text-align:center;padding:40px 0 90px}
+  footer .sig{font-size:56px}
+  #music{position:fixed;right:14px;bottom:14px;z-index:40;width:46px;height:46px;border-radius:50%;border:1.5px solid var(--ink);background:var(--paper);display:none;align-items:center;justify-content:center;cursor:pointer}
+  #music svg{width:18px;fill:var(--ink)}#music.on svg{animation:sp 4s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
+/* ===== THEME ===== */
+:root{--bg:#1f2a44;--paper:#f8f4ea;--ink:#1f2a44;--text:#2b2a2a;--muted:#717586;--accent:#b08d57;--line:#e0e3ea;--btn-ink:#fff}
+</style>
+</head>
+<body class="locked">
+
+<div id="intro" data-ms="8200">
+  <div class="letter" id="openBtn" data-open>
+    <div class="pane p1"><div class="f"><div class="in wr" id="w1"></div></div><div class="b"></div></div>
+    <div class="pane p2"><div class="f"><div class="in wr" id="w2"></div></div></div>
+    <div class="pane p3"><div class="f"><div class="in wr" id="w3"></div></div><div class="b"></div></div>
+    <div class="addr"><p class="type">A letter for you</p><p class="hand">from <span data-k="bride"></span> &amp; <span data-k="groom"></span></p></div>
+    <div class="seal" data-mono=""></div>
+  </div>
+  <p class="tapnote">Tap the seal to open</p>
+  <button class="btn solid cont" data-skip>Read the invitation</button>
+</div>
+
+<button id="music" aria-label="Music"><svg viewBox="0 0 24 24"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg></button>
+<audio id="audio" loop preload="none"></audio>
+
+<main>
+  <div class="sheet paper hero rv tilt-l">
+    <p class="type">With love, an invitation</p>
+    <h1><span data-k="bride"></span> &amp; <span data-k="groom"></span></h1>
+    <p class="intro" data-k="intro"></p>
+    <p class="date"><span data-date="long"></span></p>
+    <div class="postmark"><span data-k="city"></span><b data-date="num"></b><span>WITH LOVE</span></div>
+  </div>
+
+  <div class="sheet paper rv tilt-r">
+    <div class="pinned"><span class="clip"></span><div class="ph" data-photo="couple"></div><p class="cap" data-k="caption"></p></div>
+    <div class="letterbody lined" id="lb"></div>
+  </div>
+
+  <div class="sheet paper rv tilt-l">
+    <p class="type">Counting the days</p><h2>Until we meet</h2>
+    <div class="cd"><div><b data-cd="d">0</b><span>Days</span></div><div><b data-cd="h">0</b><span>Hours</span></div><div><b data-cd="m">0</b><span>Min</span></div><div><b data-cd="s">0</b><span>Sec</span></div></div>
+  </div>
+
+  <div class="sheet rv" style="padding:50px 4px 20px">
+    <p class="type">Where to find us</p><h2>The details</h2>
+    <div class="evs" id="evs"></div>
+  </div>
+
+  <div class="sheet paper rv tilt-r">
+    <p class="type">The plan</p><h2>Order of the day</h2>
+    <div class="sched" id="sched"></div>
+  </div>
+
+  <div class="sheet paper lined rv tilt-l">
+    <div class="ps">
+      <p><b>P.S.</b><span class="hand" style="font-size:25px">The dress code is <u data-k="dressCode"></u>.</span> <span data-k="dressNote"></span></p>
+      <p><b>P.P.S.</b><span data-k="stay"></span></p>
+    </div>
+  </div>
+
+  <div class="sheet paper rsvp rv tilt-r" id="rsvp">
+    <p class="type" style="text-align:center">Please write back by <span data-k="rsvpDeadline"></span></p><h2 style="text-align:center">Write back to us</h2>
+    <form id="f">
+      <div><label class="fl">Dear Emma &amp; James, this is</label><input name="name" required autocomplete="name" placeholder="your name(s)"></div>
+      <div class="ck"><label><input type="radio" name="attending" value="Yes" required><i></i>I'll be there with bells on</label><label><input type="radio" name="attending" value="No"><i></i>Sadly, I can't come</label></div>
+      <div class="yes"><label class="fl">Coming with me</label><select name="guests" id="guests"></select></div>
+      <div class="yes"><label class="fl">For dinner I'd like</label><select name="meal" id="meal"></select></div>
+      <div><label class="fl">A few words for you</label><textarea name="message" rows="3"></textarea></div>
+      <button class="btn solid" id="send" type="submit" style="justify-self:center;margin-top:8px">Send my letter</button>
+    </form>
+    <p id="thx" class="hide"></p>
+  </div>
+
+  <footer><p class="sig" data-names="&amp;"></p><p class="type" data-k="hashtag"></p></footer>
+</main>
+
+<script>
+(function(){
+  const C = CONFIG, esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const d = new Date(C.dateISO);
+  const body = C.letter.map(p => `<p>${esc(p)}</p>`).join("") + `<p class="sig">${esc(C.bride)} &amp; ${esc(C.groom)}</p>`;
+  const when = d.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" });
+  const intro = `<div class="ink"><p>${esc(C.salutation)}</p>` + C.letter.slice(0, 2).map(p => `<p>${esc(p)}</p>`).join("") +
+    `<p>Please join us on ${esc(when)}.</p><p>With all our love,</p><p class="sig">${esc(C.bride)} &amp; ${esc(C.groom)}</p></div>`;
+  ["w1","w2","w3"].forEach(id => document.getElementById(id).innerHTML = intro);
+  document.getElementById("lb").innerHTML = `<p>${esc(C.salutation)}</p>` + body;
+  document.querySelector(".rsvp .fl").textContent = `Dear ${C.bride} & ${C.groom}, this is`;
+})();
+window.EVT = (t, time, p, a, map, i) => `<div class="ev rv"><span class="stamp">${W.mono[0]}</span><div><h3>${t}</h3><p class="t">${time}</p></div><span class="div"></span><div><p class="p">${p}</p><p class="a">${a}</p><a class="btn" href="${map}" target="_blank" rel="noopener">Map</a></div></div>`;
+window.SCHED = (t, e) => `<div><b>${t}</b><span>${e}</span></div>`;
+/* Shared logic for designs 8-15. Inlined into every invitation at build time. */
+(function(){
+  const C = CONFIG, $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+  const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const L = C.locale || "en-US", d = new Date(C.dateISO), pad = n => String(n).padStart(2, "0");
+  const mono = C.bride[0] + C.groom[0];
+  const fmt = {
+    weekday: { weekday: "long" }, day: { day: "numeric" }, month: { month: "long" }, mon: { month: "short" }, year: { year: "numeric" },
+    long: { weekday: "long", month: "long", day: "numeric", year: "numeric" }, short: { month: "long", day: "numeric", year: "numeric" },
+    num: null, time: { hour: "numeric", minute: "2-digit" }
+  };
+  window.W = { C, $, $$, esc, d, pad, mono, map: (p, a) => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(p + ", " + a) };
+
+  document.title = `${C.bride} & ${C.groom} — ${C.titleWord || "Wedding Invitation"}`;
+  $$("[data-k]").forEach(el => el.textContent = C[el.dataset.k] ?? "");
+  $$("[data-names]").forEach(el => el.textContent = `${C.bride} ${el.dataset.names || "&"} ${C.groom}`);
+  $$("[data-mono]").forEach(el => el.textContent = el.dataset.mono ? C.bride[0] + el.dataset.mono + C.groom[0] : mono);
+  $$("[data-date]").forEach(el => {
+    const k = el.dataset.date;
+    el.textContent = k === "num" ? `${pad(d.getMonth() + 1)}.${pad(d.getDate())}.${String(d.getFullYear()).slice(2)}` : d.toLocaleString(L, fmt[k]);
+    if (el.dataset.upper != null) el.textContent = el.textContent.toUpperCase();
+  });
+  $$("[data-photo]").forEach(el => {
+    const src = C.photos[el.dataset.photo]; if (!src) return;
+    if (el.tagName === "IMG") el.src = src; else el.style.backgroundImage = `url("${src}")`;
+  });
+
+  const evTpl = window.EVT || ((t, time, p, a, map) => `<div class="ev rv"><h3>${t}</h3><p class="t">${time}</p><p class="p">${p}</p><p class="a">${a}</p><a class="btn" href="${map}" target="_blank" rel="noopener">${C.mapWord || "View map"}</a></div>`);
+  if ($("#evs")) C.events.forEach(([t, time, p, a], i) => $("#evs").insertAdjacentHTML("beforeend", evTpl(esc(t), esc(time), esc(p), esc(a), W.map(p, a), i)));
+  const scTpl = window.SCHED || ((t, e) => `<div><span>${t}</span><span>${e}</span></div>`);
+  if ($("#sched")) C.schedule.forEach(([t, e], i) => $("#sched").insertAdjacentHTML("beforeend", scTpl(esc(t), esc(e), i)));
+  if ($("#guests")) $("#guests").innerHTML = Array.from({ length: C.maxGuests }, (_, i) => `<option>${i + 1}</option>`).join("");
+  if ($("#meal")) $("#meal").innerHTML = C.meals.map(m => `<option>${esc(m)}</option>`).join("");
+  $$('input[name="attending"]').forEach(r => r.onchange = () => $$(".yes").forEach(el => el.classList.toggle("hide", r.value === "No" && r.checked)));
+
+  const cd = { d: $$('[data-cd="d"]'), h: $$('[data-cd="h"]'), m: $$('[data-cd="m"]'), s: $$('[data-cd="s"]') };
+  const tick = () => { let s = Math.max(0, Math.floor((d - Date.now()) / 1000));
+    const v = { d: Math.floor(s / 86400), h: pad(Math.floor(s % 86400 / 3600)), m: pad(Math.floor(s % 3600 / 60)), s: pad(s % 60) };
+    for (const k in cd) cd[k].forEach(el => el.textContent = v[k]); };
+  tick(); setInterval(tick, 1000);
+
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
+  $$(".rv").forEach(el => io.observe(el));
+
+  const audio = $("#audio"), mb = $("#music"); if (C.music) audio.src = C.music;
+  audio.onerror = () => mb.style.display = "none";
+  audio.onplay = () => mb.classList.add("on"); audio.onpause = () => mb.classList.remove("on");
+  mb.onclick = () => audio.paused ? audio.play().catch(() => {}) : audio.pause();
+  const intro = $("#intro"), ms = +(intro && intro.dataset.ms || 3000);
+  const finish = () => { if (!intro) return; intro.classList.add("gone"); document.body.classList.remove("locked"); document.body.classList.add("revealed"); window.onRevealed && window.onRevealed(); };
+  const open = () => { if (!intro || intro.classList.contains("open")) return; intro.classList.add("open"); window.onOpen && window.onOpen();
+    if (C.music) { mb.style.display = "flex"; audio.play().catch(() => {}); } setTimeout(finish, ms); };
+  $$("[data-open]").forEach(el => el.addEventListener("click", open));
+  $$("[data-skip]").forEach(el => el.addEventListener("click", e => { e.stopPropagation(); finish(); }));
+  if (/[?&]open\b/.test(location.search)) { intro && intro.classList.add("open"); finish(); }
+  if (/[?&]autoopen\b/.test(location.search)) setTimeout(open, 600);
+
+  const f = $("#f");
+  if (f) f.onsubmit = async e => {
+    e.preventDefault(); const fd = new FormData(f), btn = $("#send"); btn.disabled = true; btn.textContent = C.sendingWord || "Sending…";
+    try { if (C.rsvpUrl) await fetch(C.rsvpUrl, { method: "POST", mode: "no-cors", body: fd }); } catch (_) {}
+    const yes = fd.get("attending") === "Yes", n = esc(fd.get("name"));
+    $("#thx").innerHTML = (yes ? (C.thanksYes || "Thank you, {n}! We can't wait to celebrate with you.") : (C.thanksNo || "Thank you, {n}. You will be missed.")).replace("{n}", n);
+    f.classList.add("hide"); $("#thx").classList.remove("hide");
+  };
+})();
+
+</script>
+<script>/* hide music controls when the song file is missing */
+(function(){var a=document.getElementById('audio');if(!a||!a.getAttribute('src'))return;var p=new Audio();p.preload='metadata';
+p.onerror=function(){var e=document.getElementById('music');if(e)e.style.setProperty('display','none','important');};p.src=a.getAttribute('src');})();</script>
+</body>
+</html>
