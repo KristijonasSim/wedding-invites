@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wedding Invitation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Oswald:wght@400;500&display=swap" rel="stylesheet">
+<script>
+/* =========================================================================
+   EDIT ONLY THIS BLOCK FOR EACH CLIENT
+   ========================================================================= */
+const CONFIG = {
+  bride: "Sophie",
+  groom: "",
+  dateISO: "2027-03-20T20:00:00",
+  intro: "Local legend turns 30! Friends and family are invited to an evening of cocktails, cake and dancing",
+  venue: "The Rooftop Bar",
+  address: "12 Ocean Drive, Miami Beach, FL",
+  events: [
+    ["The Party", "8:00 PM", "The Rooftop Bar", "12 Ocean Drive, Miami Beach, FL"],
+    ["After Party", "11:30 PM", "Club Luna", "40 Collins Ave, Miami Beach, FL"]
+  ],
+  schedule: [
+    ["8:00 PM", "Welcome drinks"],
+    ["9:00 PM", "Dinner"],
+    ["10:00 PM", "Cake & toasts"],
+    ["10:30 PM", "Dancing"],
+    ["11:30 PM", "After party"]
+  ],
+  story: "Sources confirm that Sophie, beloved friend, sister and karaoke champion, turns thirty this spring. Witnesses describe three decades of laughter, adventures and at least one unforgettable road trip.",
+  dressCode: "Cocktail glam",
+  dressNote: "Sparkles, sequins and your best dancing shoes.",
+  stay: "Rooms are held at The Setai until March 1st. Mention Sophie's party for the group rate.",
+  rsvpDeadline: "March 1, 2027",
+  meals: ["No preference", "Vegetarian", "Vegan"],
+  maxGuests: 2,
+  hashtag: "#Sophie30",
+  music: "music.mp3",
+  rsvpUrl: "",
+  paperName: "The Birthday Times",
+  city: "Miami Beach",
+  caption: "The birthday girl, pictured at last year's party, already planning this one.",
+  story2: "A celebration will be held on the rooftop with dinner, cake and dancing until late. Guests are advised to bring their best moves. Full details follow below.",
+  titleWord: "Birthday Invitation",
+  thanksYes: "Yay, {n}! See you at the party.",
+  thanksNo: "Thank you, {n}. We'll miss you!",
+  photos: {"hero": "photos/hero.jpg", "g1": "photos/g1.jpg", "g2": "photos/g2.jpg"}
+};
+</script>
+<style>
+  :root{--bg:#2b2926;--paper:#f3eee3;--ink:#1b1a18;--muted:#5d5a54;--accent:#1b1a18;--line:#1b1a18;--photo:grayscale(1) contrast(1.08);--btn-ink:#f3eee3;
+    --black:"UnifrakturMaguntia",serif;--head:"Playfair Display",Georgia,serif;--body:"Old Standard TT",Georgia,serif;--cond:"Oswald",sans-serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:30;opacity:.35;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .35 0 0 0 0 .3 0 0 0 .25 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  body.locked{overflow:hidden}
+  .rv{opacity:0;transform:translateY(18px);transition:opacity .9s ease,transform .9s ease}.rv.in{opacity:1;transform:none}
+  .hide{display:none!important}
+  .ph{background-size:cover;background-position:center;filter:var(--photo)}
+
+  /* ===== INTRO: spinning newspaper ===== */
+  #intro{position:fixed;inset:0;z-index:50;background:radial-gradient(ellipse at 50% 40%,color-mix(in srgb,var(--bg) 70%,#fff),var(--bg));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;overflow:hidden;transition:opacity .7s ease .9s,visibility 1.6s}
+  #intro.gone{opacity:0;visibility:hidden}
+  .np{width:min(80vw,330px);aspect-ratio:3/4;background:var(--paper);color:var(--ink);padding:16px 14px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.5);cursor:pointer;
+     animation:spin 1.6s cubic-bezier(.2,.7,.2,1) .2s both;transition:transform 1.2s cubic-bezier(.6,0,.3,1)}
+  @keyframes spin{0%{transform:scale(.05) rotate(-1080deg);opacity:0}20%{opacity:1}100%{transform:scale(1) rotate(-3deg)}}
+  #intro.open .np{animation:none;transform:scale(3.4) rotate(0deg)}
+  .np .mh{font-family:var(--black);font-size:38px;text-align:center;line-height:1;border-bottom:3px double var(--ink);padding-bottom:6px}
+  .np .db{display:flex;justify-content:space-between;font-family:var(--cond);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--ink);padding:3px 0;margin-bottom:8px}
+  .np .ex{font-family:var(--cond);font-weight:500;font-size:13px;letter-spacing:.3em;text-align:center;color:var(--accent)}
+  .np .hl{font-family:var(--head);font-weight:900;font-size:40px;line-height:.95;text-align:center;text-transform:uppercase;margin:4px 0 8px}
+  .np .pic{height:34%;margin-bottom:8px}
+  .np .cols{columns:3;column-gap:8px;column-rule:1px solid color-mix(in srgb,var(--ink) 30%,transparent);font-size:5.5px;line-height:1.4;text-align:justify;height:16%;overflow:hidden;color:var(--muted)}
+  .tapnote{font-family:var(--cond);font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:#f3eee3;opacity:0;animation:fadein 1s ease 1.9s forwards,blink 2s ease-in-out 2.9s infinite}
+  @keyframes fadein{to{opacity:.85}}@keyframes blink{50%{opacity:.3}}
+  #intro.open .tapnote{animation:none;opacity:0}
+
+  /* ===== PAGE ===== */
+  main{max-width:720px;margin:0 auto;padding:22px 18px 0}
+  .masthead{text-align:center;border-bottom:4px double var(--ink);padding-bottom:10px}
+  .masthead .ear{display:flex;justify-content:space-between;align-items:center;font-family:var(--cond);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .masthead .ear span{border:1px solid var(--ink);padding:5px 7px;max-width:110px;line-height:1.3;color:var(--ink)}
+  .masthead h1{font-family:var(--black);font-weight:400;font-size:clamp(46px,13.5vw,92px);line-height:1;margin:10px 0 2px;color:var(--ink)}
+  .dateline{display:flex;justify-content:space-between;gap:10px;font-family:var(--cond);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--ink);padding:6px 0;margin-bottom:18px}
+  .extra{font-family:var(--cond);font-weight:500;font-size:13px;letter-spacing:.34em;text-align:center;color:var(--accent);text-transform:uppercase}
+  .headline{font-family:var(--head);font-weight:900;font-size:clamp(46px,14vw,96px);line-height:.92;text-align:center;text-transform:uppercase;margin:8px 0 12px;letter-spacing:-.01em}
+  .deck{font-family:var(--head);font-style:italic;font-size:21px;text-align:center;max-width:540px;margin:0 auto 18px;color:var(--muted)}
+  .lead{position:relative}
+  .lead .ph{aspect-ratio:4/3.4;border:1px solid var(--ink)}
+  .caption{font-family:var(--body);font-style:italic;font-size:13px;color:var(--muted);border-bottom:1px solid var(--ink);padding:6px 0 10px}
+  .cols2{columns:2;column-gap:22px;column-rule:1px solid color-mix(in srgb,var(--ink) 35%,transparent);text-align:justify;hyphens:auto;margin-top:16px}
+  @media(max-width:460px){.cols2{columns:1}}
+  .cols2 p{margin-bottom:10px}
+  .drop::first-letter{float:left;font-family:var(--head);font-weight:900;font-size:64px;line-height:.8;padding:6px 8px 0 0;color:var(--accent)}
+  .byline{font-family:var(--cond);font-size:11px;letter-spacing:.18em;text-transform:uppercase;margin:14px 0 4px}
+  .rule{border:0;border-top:1px solid var(--ink);margin:26px 0}
+  .rule.d{border-top:4px double var(--ink)}
+  .sh{font-family:var(--cond);font-weight:500;font-size:13px;letter-spacing:.3em;text-transform:uppercase;text-align:center;border-top:2px solid var(--ink);border-bottom:1px solid var(--ink);padding:6px 0;margin-bottom:16px}
+  h2{font-family:var(--head);font-weight:700;font-size:clamp(30px,8vw,42px);line-height:1;text-align:center;margin-bottom:14px}
+
+  .two{display:grid;grid-template-columns:1.25fr 1fr;gap:22px}
+  @media(max-width:560px){.two{grid-template-columns:1fr}}
+  .box{border:1.5px solid var(--ink);padding:16px;text-align:center}
+  .box .big{font-family:var(--head);font-weight:900;font-size:64px;line-height:1}
+  .box .cd{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--ink);margin-top:10px;padding-top:8px}
+  .box .cd b{display:block;font-family:var(--head);font-size:26px}
+  .box .cd span,.box small{font-family:var(--cond);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+  .weather{display:flex;align-items:center;gap:14px;text-align:left;margin-top:14px}
+  .weather svg{width:58px;flex:none;color:var(--accent)}
+  .weather b{font-family:var(--head);font-size:20px;display:block;line-height:1.1}
+
+  .evs{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1.5px solid var(--ink)}
+  @media(max-width:520px){.evs{grid-template-columns:1fr}}
+  .ev{padding:18px 16px;text-align:center;border-right:1px solid var(--ink)}
+  .ev:last-child{border-right:0}
+  @media(max-width:520px){.ev{border-right:0;border-bottom:1px solid var(--ink)}.ev:last-child{border-bottom:0}}
+  .ev h3{font-family:var(--cond);font-weight:500;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--accent)}
+  .ev .t{font-family:var(--head);font-weight:900;font-size:34px;line-height:1.1;margin:4px 0}
+  .ev .p{font-family:var(--head);font-size:20px;line-height:1.15}
+  .ev .a{font-style:italic;color:var(--muted);font-size:14px;margin:4px 0 12px}
+  .btn{display:inline-block;font-family:var(--cond);font-size:12px;letter-spacing:.22em;text-transform:uppercase;padding:9px 18px;border:1.5px solid var(--ink);color:var(--ink);background:none;text-decoration:none;cursor:pointer}
+  .btn.solid{background:var(--ink);color:var(--btn-ink)}
+
+  .sched div{display:flex;align-items:baseline;gap:8px;padding:7px 0;font-size:18px}
+  .sched div::after{content:"";order:1;flex:1;border-bottom:1.5px dotted var(--ink);opacity:.6}
+  .sched span:first-child{order:2;font-family:var(--cond);font-size:14px;letter-spacing:.08em}
+  .sched span:last-child{order:0;font-family:var(--head)}
+  .gal{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+  .gal .ph{aspect-ratio:1;border:1px solid var(--ink)}
+  .notices{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:520px){.notices{grid-template-columns:1fr}}
+  .notice{border-top:3px solid var(--ink);padding-top:8px}
+  .notice b{font-family:var(--cond);font-weight:500;font-size:12px;letter-spacing:.24em;text-transform:uppercase}
+  .notice h4{font-family:var(--head);font-size:24px;margin:2px 0 4px}
+  .notice p{font-size:15px;color:var(--muted)}
+
+  .coupon{border:2px dashed var(--ink);padding:26px 20px;position:relative;margin-top:10px}
+  .coupon .sc{position:absolute;top:-15px;left:20px;background:var(--paper);padding:0 6px;font-size:22px;line-height:1}
+  .coupon h3{font-family:var(--head);font-weight:900;font-size:30px;text-transform:uppercase;text-align:center;line-height:1}
+  form{display:grid;gap:14px;margin-top:16px}
+  .fl{font-family:var(--cond);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+  input,select,textarea{width:100%;font:inherit;font-size:18px;color:var(--ink);background:transparent;border:0;border-bottom:1.5px solid var(--ink);padding:6px 2px;border-radius:0;outline:none}
+  select option{color:#111}
+  .ck{display:flex;flex-direction:column;gap:8px;font-size:18px}
+  .ck label{display:flex;gap:10px;align-items:center;cursor:pointer}
+  .ck input{position:absolute;opacity:0}
+  .ck i{width:20px;height:20px;border:1.5px solid var(--ink);flex:none;display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:700}
+  .ck input:checked+i::after{content:"✕"}
+  #thx{font-family:var(--head);font-style:italic;font-size:24px;text-align:center;margin-top:12px}
+  footer{text-align:center;padding:40px 0 90px}
+  footer .mh{font-family:var(--black);font-size:40px}
+  footer p:not(.mh){font-family:var(--cond);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+  #music{position:fixed;right:14px;bottom:14px;z-index:40;width:46px;height:46px;border-radius:50%;border:1.5px solid var(--ink);background:var(--paper);display:none;align-items:center;justify-content:center;cursor:pointer}
+  #music svg{width:18px;fill:var(--ink)}#music.on svg{animation:sp 4s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
+/* ===== THEME ===== */
+:root{--bg:#3a2c20;--paper:#efe3cc;--ink:#3b2a1c;--muted:#6e5a45;--accent:#8a4b2a;--line:#3b2a1c;--photo:sepia(.75) contrast(1.05) saturate(.8);--btn-ink:#efe3cc}
+</style>
+</head>
+<body class="locked">
+
+<div id="intro" data-ms="1500">
+  <div class="np" id="openBtn" data-open>
+    <p class="mh" data-k="paperName"></p>
+    <div class="db"><span>Special edition</span><span data-date="short"></span></div>
+    <p class="ex">★ Extra! Extra! ★</p>
+    <p class="hl"><span data-k="bride"></span> turns 30</p>
+    <div class="pic ph" data-photo="hero"></div>
+    <div class="cols" data-k="story"></div>
+  </div>
+  <p class="tapnote">Tap to read all about it</p>
+</div>
+
+<button id="music" aria-label="Music"><svg viewBox="0 0 24 24"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg></button>
+<audio id="audio" loop preload="none"></audio>
+
+<main>
+  <header class="masthead">
+    <div class="ear"><span>Special birthday edition</span><span style="text-align:right">Price: your presence</span></div>
+    <h1 data-k="paperName"></h1>
+  </header>
+  <div class="dateline"><span>Vol. I · No. 1</span><span data-date="long"></span><span data-k="city"></span></div>
+
+  <p class="extra rv">★ Breaking news ★</p>
+  <h2 class="headline rv"><span data-k="bride"></span> turns 30!</h2>
+  <p class="deck rv" data-k="intro"></p>
+  <div class="lead rv"><div class="ph" data-photo="hero"></div><p class="caption" data-k="caption"></p></div>
+
+  <div class="cols2 rv">
+    <p class="byline">By our society correspondent</p>
+    <p class="drop" data-k="story"></p>
+    <p data-k="story2"></p>
+  </div>
+
+  <hr class="rule d">
+  <div class="two">
+    <div class="rv">
+      <p class="sh">The big day</p>
+      <div class="box">
+        <small data-date="weekday"></small>
+        <p class="big" data-date="day"></p>
+        <small><span data-date="month"></span> <span data-date="year"></span></small>
+        <div class="cd"><div><b data-cd="d">0</b><span>Days</span></div><div><b data-cd="h">0</b><span>Hours</span></div><div><b data-cd="m">0</b><span>Minutes</span></div></div>
+      </div>
+    </div>
+    <div class="rv">
+      <p class="sh">Forecast</p>
+      <div class="weather"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="24" cy="24" r="9"/><path d="M24 6v5M24 37v5M6 24h5M37 24h5M11 11l3.5 3.5M33.5 33.5L37 37M11 37l3.5-3.5M33.5 14.5L37 11"/><path d="M40 52c-6 0-10-3.5-10-8s4-8 9-8c1.5-4 5-6 9-6 6 0 10 4.5 10 10s-3.5 12-10 12z" fill="var(--paper)"/></svg>
+        <div><b>100% chance of cake</b><p style="font-size:15px;color:var(--muted)">Warm wishes all day, with confetti showers after dark.</p></div></div>
+      <div class="weather"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M32 54S10 40 10 24a11 11 0 0 1 22-3 11 11 0 0 1 22 3c0 16-22 30-22 30z"/></svg>
+        <div><b>Dancing expected</b><p style="font-size:15px;color:var(--muted)">Heavy dancing likely after dinner. Comfortable shoes advised.</p></div></div>
+    </div>
+  </div>
+
+  <hr class="rule">
+  <p class="sh rv">Where to be</p>
+  <div class="evs rv" id="evs"></div>
+
+  <hr class="rule">
+  <div class="two">
+    <div class="rv"><p class="sh">Today's programme</p><div class="sched" id="sched"></div></div>
+    <div class="rv"><p class="sh">In pictures</p><div class="gal"><div class="ph" data-photo="g1"></div><div class="ph" data-photo="g2"></div></div></div>
+  </div>
+
+  <hr class="rule">
+  <p class="sh rv">Notices to guests</p>
+  <div class="notices rv">
+    <div class="notice"><b>Dress code</b><h4 data-k="dressCode"></h4><p data-k="dressNote"></p></div>
+    <div class="notice"><b>Accommodation</b><h4>Where to stay</h4><p data-k="stay"></p></div>
+  </div>
+
+  <hr class="rule d">
+  <section id="rsvp" class="rv">
+    <h2>Reply coupon</h2>
+    <p style="text-align:center;font-style:italic;color:var(--muted)">Kindly return by <span data-k="rsvpDeadline"></span></p>
+    <div class="coupon"><span class="sc">✂</span>
+      <h3>Will you attend?</h3>
+      <form id="f">
+        <div><label class="fl">Name(s)</label><input name="name" required autocomplete="name"></div>
+        <div class="ck"><label><input type="radio" name="attending" value="Yes" required><i></i>Yes, I wouldn't miss it</label><label><input type="radio" name="attending" value="No"><i></i>Sadly, I can't attend</label></div>
+        <div class="yes"><label class="fl">Number of guests</label><select name="guests" id="guests"></select></div>
+        <div class="yes"><label class="fl">Dinner choice</label><select name="meal" id="meal"></select></div>
+        <div><label class="fl">Dietary needs or a birthday note</label><textarea name="message" rows="2"></textarea></div>
+        <button class="btn solid" id="send" type="submit" style="justify-self:center">Send reply</button>
+      </form>
+      <p id="thx" class="hide"></p>
+    </div>
+  </section>
+
+  <footer><hr class="rule d"><p class="mh" data-k="paperName"></p><p data-k="hashtag"></p></footer>
+</main>
+
+<script>
+window.EVT = (t, time, p, a, map) => `<div class="ev"><h3>${t}</h3><p class="t">${time}</p><p class="p">${p}</p><p class="a">${a}</p><a class="btn" href="${map}" target="_blank" rel="noopener">See the map</a></div>`;
+/* Shared logic for designs 8-15. Inlined into every invitation at build time. */
+(function(){
+  const C = CONFIG, $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+  const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const L = C.locale || "en-US", d = new Date(C.dateISO), pad = n => String(n).padStart(2, "0");
+  const mono = C.bride[0] + (C.groom ? C.groom[0] : "");
+  const fmt = {
+    weekday: { weekday: "long" }, day: { day: "numeric" }, month: { month: "long" }, mon: { month: "short" }, year: { year: "numeric" },
+    long: { weekday: "long", month: "long", day: "numeric", year: "numeric" }, short: { month: "long", day: "numeric", year: "numeric" },
+    num: null, time: { hour: "numeric", minute: "2-digit" }
+  };
+  window.W = { C, $, $$, esc, d, pad, mono, map: (p, a) => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(p + ", " + a) };
+
+  document.title = `${C.bride} & ${C.groom} — ${C.titleWord || "Wedding Invitation"}`;
+  $$("[data-k]").forEach(el => el.textContent = C[el.dataset.k] ?? "");
+  $$("[data-names]").forEach(el => el.textContent = C.groom ? `${C.bride} ${el.dataset.names || "&"} ${C.groom}` : C.bride);
+  $$("[data-mono]").forEach(el => el.textContent = el.dataset.mono && C.groom ? C.bride[0] + el.dataset.mono + C.groom[0] : mono);
+  $$("[data-date]").forEach(el => {
+    const k = el.dataset.date;
+    el.textContent = k === "num" ? `${pad(d.getMonth() + 1)}.${pad(d.getDate())}.${String(d.getFullYear()).slice(2)}` : d.toLocaleString(L, fmt[k]);
+    if (el.dataset.upper != null) el.textContent = el.textContent.toUpperCase();
+  });
+  $$("[data-photo]").forEach(el => {
+    const src = C.photos[el.dataset.photo]; if (!src) return;
+    if (el.tagName === "IMG") el.src = src; else el.style.backgroundImage = `url("${src}")`;
+  });
+
+  const evTpl = window.EVT || ((t, time, p, a, map) => `<div class="ev rv"><h3>${t}</h3><p class="t">${time}</p><p class="p">${p}</p><p class="a">${a}</p><a class="btn" href="${map}" target="_blank" rel="noopener">${C.mapWord || "View map"}</a></div>`);
+  if ($("#evs")) C.events.forEach(([t, time, p, a], i) => $("#evs").insertAdjacentHTML("beforeend", evTpl(esc(t), esc(time), esc(p), esc(a), W.map(p, a), i)));
+  const scTpl = window.SCHED || ((t, e) => `<div><span>${t}</span><span>${e}</span></div>`);
+  if ($("#sched")) C.schedule.forEach(([t, e], i) => $("#sched").insertAdjacentHTML("beforeend", scTpl(esc(t), esc(e), i)));
+  if ($("#guests")) $("#guests").innerHTML = Array.from({ length: C.maxGuests }, (_, i) => `<option>${i + 1}</option>`).join("");
+  if ($("#meal")) $("#meal").innerHTML = C.meals.map(m => `<option>${esc(m)}</option>`).join("");
+  $$('input[name="attending"]').forEach(r => r.onchange = () => $$(".yes").forEach(el => el.classList.toggle("hide", r.value === "No" && r.checked)));
+
+  const cd = { d: $$('[data-cd="d"]'), h: $$('[data-cd="h"]'), m: $$('[data-cd="m"]'), s: $$('[data-cd="s"]') };
+  const tick = () => { let s = Math.max(0, Math.floor((d - Date.now()) / 1000));
+    const v = { d: Math.floor(s / 86400), h: pad(Math.floor(s % 86400 / 3600)), m: pad(Math.floor(s % 3600 / 60)), s: pad(s % 60) };
+    for (const k in cd) cd[k].forEach(el => el.textContent = v[k]); };
+  tick(); setInterval(tick, 1000);
+
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
+  $$(".rv").forEach(el => io.observe(el));
+
+  const audio = $("#audio"), mb = $("#music"); if (C.music) audio.src = C.music;
+  audio.onerror = () => mb.style.display = "none";
+  audio.onplay = () => mb.classList.add("on"); audio.onpause = () => mb.classList.remove("on");
+  mb.onclick = () => audio.paused ? audio.play().catch(() => {}) : audio.pause();
+  const intro = $("#intro"), ms = +(intro && intro.dataset.ms || 3000);
+  const finish = () => { if (!intro) return; intro.classList.add("gone"); document.body.classList.remove("locked"); document.body.classList.add("revealed"); window.onRevealed && window.onRevealed(); };
+  const open = () => { if (!intro || intro.classList.contains("open")) return; intro.classList.add("open"); window.onOpen && window.onOpen();
+    if (C.music) { mb.style.display = "flex"; audio.play().catch(() => {}); } setTimeout(finish, ms); };
+  $$("[data-open]").forEach(el => el.addEventListener("click", open));
+  $$("[data-skip]").forEach(el => el.addEventListener("click", e => { e.stopPropagation(); finish(); }));
+  if (/[?&]open\b/.test(location.search)) { intro && intro.classList.add("open"); finish(); }
+  if (/[?&]autoopen\b/.test(location.search)) setTimeout(open, 600);
+
+  const f = $("#f");
+  if (f) f.onsubmit = async e => {
+    e.preventDefault(); const fd = new FormData(f), btn = $("#send"); btn.disabled = true; btn.textContent = C.sendingWord || "Sending…";
+    try { if (C.rsvpUrl) await fetch(C.rsvpUrl, { method: "POST", mode: "no-cors", body: fd }); } catch (_) {}
+    const yes = fd.get("attending") === "Yes", n = esc(fd.get("name"));
+    $("#thx").innerHTML = (yes ? (C.thanksYes || "Thank you, {n}! We can't wait to celebrate with you.") : (C.thanksNo || "Thank you, {n}. You will be missed.")).replace("{n}", n);
+    f.classList.add("hide"); $("#thx").classList.remove("hide");
+  };
+})();
+
+</script>
+<script>/* hide music controls when the song file is missing */
+(function(){var a=document.getElementById('audio');if(!a||!a.getAttribute('src'))return;var p=new Audio();p.preload='metadata';
+p.onerror=function(){var e=document.getElementById('music');if(e)e.style.setProperty('display','none','important');};p.src=a.getAttribute('src');})();</script>
+</body>
+</html>

@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wedding Invitation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Mono:wght@400;700&family=Jost:wght@300;400;500&family=Homemade+Apple&display=swap" rel="stylesheet">
+<script>
+/* =========================================================================
+   EDIT ONLY THIS BLOCK FOR EACH CLIENT
+   ========================================================================= */
+const CONFIG = {
+  bride: "Emma",
+  groom: "",
+  dateISO: "2027-05-14T19:00:00",
+  intro: "Pack your bags, girls! Join us for Emma's last fling before the ring",
+  venue: "Villa Lemoni",
+  address: "Via Pasitea 12, Positano, Italy",
+  events: [
+    ["Welcome Night", "Fri 7:00 PM", "Villa Lemoni", "Via Pasitea 12, Positano, Italy"],
+    ["Beach Club Day", "Sat 12:00 PM", "Arienzo Beach Club", "Via Arienzo 16, Positano, Italy"]
+  ],
+  schedule: [
+    ["Fri 7 PM", "Welcome dinner"],
+    ["Sat 12 PM", "Beach club"],
+    ["Sat 9 PM", "Night out"],
+    ["Sun 11 AM", "Farewell brunch"]
+  ],
+  story: "Before Emma says I do, we are stealing her for one last weekend of sunshine, spritz and dancing. No grooms allowed!",
+  dressCode: "Bride squad",
+  dressNote: "Bride in white, squad in pink. Swimsuits, sunglasses and comfy sandals.",
+  stay: "We have the whole villa: 6 rooms, shared 2 per room. Cost per person will be sent after you reply.",
+  rsvpDeadline: "March 1, 2027",
+  meals: ["No preference", "Vegetarian", "Vegan"],
+  maxGuests: 1,
+  hashtag: "#EmmasLastFling",
+  music: "music.mp3",
+  rsvpUrl: "",
+  flight: "EM0514",
+  fromCode: "LDN",
+  fromCity: "London",
+  toCode: "NAP",
+  toCity: "Amalfi Coast",
+  boarding: "9:15 AM",
+  gate: "BRIDE",
+  seat: "SQUAD",
+  titleWord: "Bachelorette Invitation",
+  thanksYes: "Yay, {n}! The squad is complete.",
+  thanksNo: "Thank you, {n}. We'll miss you!",
+  photos: {"couple": "photos/couple.jpg"}
+};
+</script>
+<style>
+  :root{--bg:#eef3f7;--paper:#fff;--ink:#1d2b3a;--muted:#6d7b8a;--accent:#e06c4f;--sky1:#a9cbe6;--sky2:#e9f2f8;--board:#16202b;--board-ink:#ffd36b;--line:#dbe3ea;--btn-ink:#fff;
+    --serif:"DM Serif Display",Georgia,serif;--mono:"Space Mono",ui-monospace,monospace;--sans:"Jost",system-ui,sans-serif;--hand:"Homemade Apple",cursive}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body.locked{overflow:hidden}
+  .wrap{max-width:640px;margin:0 auto;padding:0 20px}
+  .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .val{font-family:var(--mono);font-weight:700;font-size:15px;letter-spacing:.04em}
+  .rv{opacity:0;transform:translate3d(0,24px,0);transition:opacity 1s ease,transform 1s cubic-bezier(.2,.7,.2,1)}.rv.in{opacity:1;transform:none}
+  .hide{display:none!important}
+
+  /* ===== INTRO: the boarding pass ===== */
+  #intro{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;overflow:hidden;
+    background:linear-gradient(180deg,var(--sky1),var(--sky2));transition:opacity .8s ease .2s,visibility 1s}
+  #intro.gone{opacity:0;visibility:hidden}
+  .cloud{position:absolute;width:240px;height:70px;border-radius:99px;background:#fff;opacity:.75;filter:blur(2px);animation:drift linear infinite}
+  .cloud::before,.cloud::after{content:"";position:absolute;background:#fff;border-radius:50%}
+  .cloud::before{width:110px;height:110px;left:40px;top:-55px}.cloud::after{width:80px;height:80px;left:120px;top:-35px}
+  .cloud.c1{top:12%;left:-260px;animation-duration:38s}.cloud.c2{top:70%;left:-260px;animation-duration:52s;animation-delay:-20s;transform:scale(.7)}.cloud.c3{top:40%;left:-260px;animation-duration:64s;animation-delay:-40s;transform:scale(.5);opacity:.5}
+  @keyframes drift{to{left:110%}}
+  .pass{position:relative;width:min(88vw,380px);display:flex;flex-direction:column;filter:drop-shadow(0 24px 40px rgba(20,40,60,.25));cursor:pointer;transition:transform 1.1s cubic-bezier(.6,0,.3,1) 1.5s,opacity .6s ease 2.1s}
+  .pass .main,.pass .stub{background:var(--paper);position:relative}
+  .pass .main{border-radius:18px 18px 0 0;padding:22px 22px 18px;-webkit-mask:radial-gradient(circle 12px at 0 100%,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 12px at 100% 100%,#0000 98%,#000) right/51% 100% no-repeat;
+    mask:radial-gradient(circle 12px at 0 100%,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 12px at 100% 100%,#0000 98%,#000) right/51% 100% no-repeat}
+  .pass .stub{border-radius:0 0 18px 18px;padding:16px 22px 20px;transform-origin:0 0;transition:transform 1s cubic-bezier(.5,0,.6,1) .25s,opacity .8s ease .5s;
+    -webkit-mask:radial-gradient(circle 12px at 0 0,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 12px at 100% 0,#0000 98%,#000) right/51% 100% no-repeat;
+    mask:radial-gradient(circle 12px at 0 0,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 12px at 100% 0,#0000 98%,#000) right/51% 100% no-repeat}
+  .pass .stub::before{content:"";position:absolute;left:18px;right:18px;top:0;border-top:2px dashed var(--line)}
+  .phead{display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:1px solid var(--line)}
+  .phead b{font-family:var(--mono);font-size:12px;letter-spacing:.24em;color:var(--accent)}
+  .route{display:flex;align-items:center;justify-content:space-between;margin:18px 0 6px}
+  .route .code{font-family:var(--mono);font-weight:700;font-size:44px;line-height:1;letter-spacing:.02em}
+  .route .city{font-size:12px;color:var(--muted)}
+  .route .mid{flex:1;margin:0 10px;position:relative;height:30px;color:var(--accent)}
+  .route .mid::before{content:"";position:absolute;left:0;right:0;top:50%;border-top:2px dashed currentColor;opacity:.45}
+  .route .mid svg{position:absolute;left:50%;top:50%;width:28px;transform:translate(-50%,-50%)}
+  .grid3{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:12px 10px;margin-top:14px}
+  .bar{height:46px;margin-top:12px;background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 4px,var(--ink) 4px 5px,transparent 5px 8px,var(--ink) 8px 11px,transparent 11px 12px,var(--ink) 12px 13px,transparent 13px 16px);opacity:.85}
+  .tapnote{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);opacity:.75;animation:blink 2s ease-in-out infinite;transition:opacity .3s}
+  @keyframes blink{50%{opacity:.3}}
+  .plane{position:absolute;left:-120px;top:58%;width:96px;color:var(--ink);z-index:3;opacity:0}
+  #intro.open .tapnote{opacity:0;animation:none}
+  #intro.open .stub{transform:translate3d(30px,160px,0) rotate(18deg);opacity:0}
+  #intro.open .pass{transform:translate3d(0,-120vh,0) rotate(-6deg)}
+  #intro.open .plane{animation:fly 2.6s cubic-bezier(.45,0,.3,1) .7s forwards}
+  @keyframes fly{0%{opacity:1;transform:translate(0,0) rotate(-8deg)}100%{opacity:1;transform:translate(calc(100vw + 260px),-48vh) rotate(-18deg)}}
+
+  /* ===== PAGE ===== */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;padding:80px 0 60px;
+    background:linear-gradient(180deg,var(--sky1),var(--sky2) 70%,var(--bg));overflow:hidden}
+  .hero .cloud{opacity:.55}
+  .hero .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.3em;text-transform:uppercase}
+  .hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(56px,15vw,96px);line-height:.95;margin:18px 0}
+  .hero h1 em{display:block;font-size:.42em;color:var(--accent);margin:8px 0}
+  .hero .route{max-width:360px;margin:26px auto 0}
+  .hero .when{font-family:var(--mono);font-size:14px;letter-spacing:.14em;text-transform:uppercase;margin-top:20px}
+  .trail{position:absolute;left:-10%;right:-10%;top:18%;height:160px;pointer-events:none;color:var(--accent);opacity:.5}
+  section{padding:84px 0;text-align:center}
+  h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,9vw,48px);line-height:1.05;margin:10px 0 26px}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--accent)}
+
+  .window{width:min(300px,74vw);aspect-ratio:3/4.1;margin:0 auto;border-radius:46% / 34%;padding:16px;background:linear-gradient(145deg,#f4f6f8,#cfd6dd);box-shadow:inset 0 2px 8px rgba(0,0,0,.18),0 20px 40px rgba(0,0,0,.12)}
+  .window div{width:100%;height:100%;border-radius:44% / 32%;background-size:cover;background-position:center;box-shadow:inset 0 0 0 6px rgba(255,255,255,.35),inset 0 0 30px rgba(0,0,0,.25)}
+  .story{max-width:440px;margin:26px auto 0;color:var(--muted);font-size:18px}
+
+  .flaps{display:flex;justify-content:center;gap:10px;margin-top:8px}
+  .flaps div{background:var(--board);color:var(--board-ink);border-radius:8px;min-width:72px;padding:12px 6px 8px;position:relative;box-shadow:0 10px 20px rgba(0,0,0,.18)}
+  .flaps div::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(0,0,0,.6)}
+  .flaps b{display:block;font-family:var(--mono);font-size:clamp(28px,8vw,40px);line-height:1.1}
+  .flaps span{font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:color-mix(in srgb,var(--board-ink) 60%,transparent)}
+
+  .evs{display:grid;gap:18px;text-align:left}
+  .ev{background:var(--paper);border-radius:16px;display:grid;grid-template-columns:1fr 92px;box-shadow:0 14px 30px rgba(20,40,60,.08);overflow:hidden}
+  .ev .l{padding:20px 20px 18px}
+  .ev .r{border-left:2px dashed var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:color-mix(in srgb,var(--accent) 8%,var(--paper));text-align:center;padding:10px 6px}
+  .ev h3{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+  .ev .p{font-family:var(--serif);font-size:26px;line-height:1.1;margin:6px 0 2px}
+  .ev .a{color:var(--muted);font-size:15px;margin-bottom:12px}
+  .btn{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;padding:11px 20px;border-radius:99px;border:1.5px solid var(--ink);color:var(--ink);text-decoration:none;background:none;cursor:pointer}
+  .btn.solid{background:var(--accent);border-color:var(--accent);color:var(--btn-ink)}
+
+  .board{background:var(--board);color:var(--board-ink);border-radius:16px;padding:20px 16px;text-align:left;font-family:var(--mono);box-shadow:0 20px 40px rgba(0,0,0,.18)}
+  .board .bh{display:grid;grid-template-columns:80px 1fr 80px;font-size:10px;letter-spacing:.2em;color:color-mix(in srgb,var(--board-ink) 55%,transparent);padding:0 4px 10px;border-bottom:1px solid rgba(255,255,255,.12)}
+  .board .row{display:grid;grid-template-columns:80px 1fr 80px;padding:12px 4px;border-bottom:1px solid rgba(255,255,255,.07);font-size:14px;align-items:center}
+  .board .row span:nth-child(2){color:#fff;text-transform:uppercase;letter-spacing:.06em}
+  .board .row i{font-style:normal;font-size:10px;letter-spacing:.14em;color:#7fe0a4;text-align:right}
+  .board .ttl{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:13px;letter-spacing:.24em}
+
+  .tags{display:grid;grid-template-columns:1fr 1fr;gap:16px;text-align:left}
+  @media(max-width:520px){.tags{grid-template-columns:1fr}}
+  .tag{background:var(--paper);border-radius:14px 14px 14px 40px;padding:26px 20px 22px 22px;position:relative;box-shadow:0 12px 26px rgba(20,40,60,.07)}
+  .tag::before{content:"";position:absolute;right:18px;top:18px;width:14px;height:14px;border-radius:50%;border:3px solid var(--line)}
+  .tag p{color:var(--muted);font-size:15px}
+  .tag b{display:block;font-family:var(--serif);font-weight:400;font-size:24px;margin:4px 0}
+
+  .checkin{background:var(--paper);border-radius:20px;padding:30px 22px;text-align:left;box-shadow:0 20px 40px rgba(20,40,60,.1);position:relative}
+  .checkin::before{content:"";position:absolute;left:0;right:0;top:0;height:8px;border-radius:20px 20px 0 0;background:repeating-linear-gradient(90deg,var(--accent) 0 18px,var(--ink) 18px 36px)}
+  form{display:grid;gap:16px;margin-top:18px}
+  input,select,textarea{width:100%;font:inherit;font-size:17px;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:11px 12px;outline:none}
+  input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+  .seg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .seg input{position:absolute;opacity:0;pointer-events:none}
+  .seg label{border:1.5px solid var(--line);border-radius:10px;padding:13px 8px;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+  .seg input:checked+label{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+  #thx{font-family:var(--serif);font-size:24px;text-align:center;margin-top:12px}
+
+  footer{padding:60px 0 90px;text-align:center}
+  .stamp{width:150px;height:150px;border-radius:50%;border:3px double var(--accent);color:var(--accent);margin:0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;transform:rotate(-12deg);font-family:var(--mono);font-size:10px;letter-spacing:.2em}
+  .stamp b{font-family:var(--serif);font-weight:400;font-size:38px;letter-spacing:0;line-height:1;margin:4px 0}
+  footer .hand{font-family:var(--hand);font-size:22px;margin-top:30px}
+  #music{position:fixed;right:14px;bottom:14px;z-index:40;width:46px;height:46px;border-radius:50%;border:0;background:var(--ink);display:none;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.2)}
+  #music svg{width:18px;fill:var(--paper)}#music.on svg{animation:sp 4s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
+/* ===== THEME ===== */
+:root{--bg:#eef0e8;--paper:#fbfcf8;--ink:#26301f;--muted:#6f7a68;--accent:#6d8459;--sky1:#c9d6bb;--sky2:#eef2e7;--board:#1f271a;--board-ink:#e9d68a;--line:#e0e5d6;--btn-ink:#fff}
+</style>
+</head>
+<body class="locked">
+<svg width="0" height="0" style="position:absolute"><symbol id="pl" viewBox="0 0 64 64"><path fill="currentColor" d="M61 30.5c0-2-2-3.5-4.5-3.5H41L26 4h-6l7.5 23H13l-5-7H3l3.5 12L3 44h5l5-7h14.5L20 60h6l15-23h15.5c2.5 0 4.5-1.5 4.5-3.5z" transform="rotate(0 32 32)"/></symbol></svg>
+
+<div id="intro" data-ms="3300">
+  <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
+  <svg class="plane"><use href="#pl"/></svg>
+  <div class="pass" id="openBtn" data-open>
+    <div class="main">
+      <div class="phead"><b>BOARDING PASS</b><span class="lbl">Flight <span data-k="flight"></span></span></div>
+      <div class="route"><div><p class="code" data-k="fromCode"></p><p class="city" data-k="fromCity"></p></div><div class="mid"><svg><use href="#pl"/></svg></div><div style="text-align:right"><p class="code" data-k="toCode"></p><p class="city" data-k="toCity"></p></div></div>
+      <div class="grid3">
+        <div><p class="lbl">Passengers</p><p class="val"><span data-k="bride"></span></p></div>
+        <div><p class="lbl">Date</p><p class="val" data-date="num"></p></div>
+        <div><p class="lbl">Boarding</p><p class="val" data-k="boarding"></p></div>
+      </div>
+    </div>
+    <div class="stub">
+      <div class="grid3"><div><p class="lbl">Class</p><p class="val">Bride Squad</p></div><div><p class="lbl">Gate</p><p class="val" data-k="gate"></p></div><div><p class="lbl">Seat</p><p class="val" data-k="seat"></p></div></div>
+      <div class="bar"></div>
+    </div>
+  </div>
+  <p class="tapnote">Tap the ticket to board</p>
+</div>
+
+<button id="music" aria-label="Music"><svg viewBox="0 0 24 24"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg></button>
+<audio id="audio" loop preload="none"></audio>
+
+<main>
+  <header class="hero">
+    <div class="cloud c1"></div><div class="cloud c2"></div>
+    <svg class="trail" viewBox="0 0 400 160" preserveAspectRatio="none"><path d="M0 140 C120 120 220 40 400 20" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 8"/></svg>
+    <div class="wrap">
+      <p class="kicker rv">Bachelorette trip · you're invited</p>
+      <h1 class="rv"><span data-k="bride"></span></h1>
+      <p class="rv" data-k="intro" style="max-width:420px;margin:0 auto"></p>
+      <div class="route rv"><div><p class="code" data-k="fromCode"></p><p class="city" data-k="fromCity"></p></div><div class="mid"><svg><use href="#pl"/></svg></div><div style="text-align:right"><p class="code" data-k="toCode"></p><p class="city" data-k="toCity"></p></div></div>
+      <p class="when rv"><span data-date="long"></span></p>
+    </div>
+  </header>
+
+  <section><div class="wrap">
+    <div class="window rv"><div data-photo="couple"></div></div>
+    <p class="story rv" data-k="story"></p>
+  </div></section>
+
+  <section style="background:var(--paper)"><div class="wrap">
+    <p class="eyebrow rv">Departure in</p><h2 class="rv">Countdown to take-off</h2>
+    <div class="flaps rv"><div><b data-cd="d">0</b><span>DAYS</span></div><div><b data-cd="h">0</b><span>HRS</span></div><div><b data-cd="m">0</b><span>MIN</span></div><div><b data-cd="s">0</b><span>SEC</span></div></div>
+  </div></section>
+
+  <section><div class="wrap">
+    <p class="eyebrow rv">Your itinerary</p><h2 class="rv">Where &amp; when</h2>
+    <div class="evs" id="evs"></div>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap">
+    <div class="board rv">
+      <div class="ttl"><span>✈ DEPARTURES</span><span data-date="num"></span></div>
+      <div class="bh"><span>TIME</span><span>DESTINATION</span><span style="text-align:right">STATUS</span></div>
+      <div id="sched"></div>
+    </div>
+  </div></section>
+
+  <section style="background:var(--paper)"><div class="wrap">
+    <p class="eyebrow rv">Travel tips</p><h2 class="rv">Before you fly</h2>
+    <div class="tags rv">
+      <div class="tag"><p class="lbl">Dress code</p><b data-k="dressCode"></b><p data-k="dressNote"></p></div>
+      <div class="tag"><p class="lbl">Where to stay</p><b>Accommodation</b><p data-k="stay"></p></div>
+    </div>
+  </div></section>
+
+  <section id="rsvp"><div class="wrap">
+    <p class="eyebrow rv">Please check in by <span data-k="rsvpDeadline"></span></p><h2 class="rv">Online check-in</h2>
+    <div class="checkin rv">
+      <form id="f">
+        <div><p class="lbl">Passenger name(s)</p><input name="name" required autocomplete="name"></div>
+        <div class="seg"><input type="radio" name="attending" value="Yes" id="ay" required><label for="ay">✈ I'm on board</label><input type="radio" name="attending" value="No" id="an"><label for="an">Can't make it</label></div>
+        <div class="yes"><p class="lbl">Number of passengers</p><select name="guests" id="guests"></select></div>
+        <div class="yes"><p class="lbl">In-flight meal</p><select name="meal" id="meal"></select></div>
+        <div><p class="lbl">Dietary needs or a message</p><textarea name="message" rows="2"></textarea></div>
+        <button class="btn solid" id="send" type="submit" style="justify-self:center">Check in</button>
+      </form>
+      <p id="thx" class="hide"></p>
+    </div>
+  </div></section>
+
+  <footer><div class="wrap">
+    <div class="stamp"><span>ARRIVED</span><b data-mono="&amp;"></b><span data-date="num"></span></div>
+    <p class="hand" data-k="hashtag"></p>
+  </div></footer>
+</main>
+
+<script>
+window.EVT = (t, time, p, a, map) => `<div class="ev rv"><div class="l"><h3>${t}</h3><p class="p">${p}</p><p class="a">${a}</p><a class="btn" href="${map}" target="_blank" rel="noopener">Directions</a></div><div class="r"><span class="lbl">Time</span><span class="val" style="font-size:17px">${time}</span></div></div>`;
+window.SCHED = (t, e) => `<div class="row"><span>${t}</span><span>${e}</span><i>ON TIME</i></div>`;
+/* Shared logic for designs 8-15. Inlined into every invitation at build time. */
+(function(){
+  const C = CONFIG, $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+  const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const L = C.locale || "en-US", d = new Date(C.dateISO), pad = n => String(n).padStart(2, "0");
+  const mono = C.bride[0] + (C.groom ? C.groom[0] : "");
+  const fmt = {
+    weekday: { weekday: "long" }, day: { day: "numeric" }, month: { month: "long" }, mon: { month: "short" }, year: { year: "numeric" },
+    long: { weekday: "long", month: "long", day: "numeric", year: "numeric" }, short: { month: "long", day: "numeric", year: "numeric" },
+    num: null, time: { hour: "numeric", minute: "2-digit" }
+  };
+  window.W = { C, $, $$, esc, d, pad, mono, map: (p, a) => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(p + ", " + a) };
+
+  document.title = `${C.bride} & ${C.groom} — ${C.titleWord || "Wedding Invitation"}`;
+  $$("[data-k]").forEach(el => el.textContent = C[el.dataset.k] ?? "");
+  $$("[data-names]").forEach(el => el.textContent = C.groom ? `${C.bride} ${el.dataset.names || "&"} ${C.groom}` : C.bride);
+  $$("[data-mono]").forEach(el => el.textContent = el.dataset.mono && C.groom ? C.bride[0] + el.dataset.mono + C.groom[0] : mono);
+  $$("[data-date]").forEach(el => {
+    const k = el.dataset.date;
+    el.textContent = k === "num" ? `${pad(d.getMonth() + 1)}.${pad(d.getDate())}.${String(d.getFullYear()).slice(2)}` : d.toLocaleString(L, fmt[k]);
+    if (el.dataset.upper != null) el.textContent = el.textContent.toUpperCase();
+  });
+  $$("[data-photo]").forEach(el => {
+    const src = C.photos[el.dataset.photo]; if (!src) return;
+    if (el.tagName === "IMG") el.src = src; else el.style.backgroundImage = `url("${src}")`;
+  });
+
+  const evTpl = window.EVT || ((t, time, p, a, map) => `<div class="ev rv"><h3>${t}</h3><p class="t">${time}</p><p class="p">${p}</p><p class="a">${a}</p><a class="btn" href="${map}" target="_blank" rel="noopener">${C.mapWord || "View map"}</a></div>`);
+  if ($("#evs")) C.events.forEach(([t, time, p, a], i) => $("#evs").insertAdjacentHTML("beforeend", evTpl(esc(t), esc(time), esc(p), esc(a), W.map(p, a), i)));
+  const scTpl = window.SCHED || ((t, e) => `<div><span>${t}</span><span>${e}</span></div>`);
+  if ($("#sched")) C.schedule.forEach(([t, e], i) => $("#sched").insertAdjacentHTML("beforeend", scTpl(esc(t), esc(e), i)));
+  if ($("#guests")) $("#guests").innerHTML = Array.from({ length: C.maxGuests }, (_, i) => `<option>${i + 1}</option>`).join("");
+  if ($("#meal")) $("#meal").innerHTML = C.meals.map(m => `<option>${esc(m)}</option>`).join("");
+  $$('input[name="attending"]').forEach(r => r.onchange = () => $$(".yes").forEach(el => el.classList.toggle("hide", r.value === "No" && r.checked)));
+
+  const cd = { d: $$('[data-cd="d"]'), h: $$('[data-cd="h"]'), m: $$('[data-cd="m"]'), s: $$('[data-cd="s"]') };
+  const tick = () => { let s = Math.max(0, Math.floor((d - Date.now()) / 1000));
+    const v = { d: Math.floor(s / 86400), h: pad(Math.floor(s % 86400 / 3600)), m: pad(Math.floor(s % 3600 / 60)), s: pad(s % 60) };
+    for (const k in cd) cd[k].forEach(el => el.textContent = v[k]); };
+  tick(); setInterval(tick, 1000);
+
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
+  $$(".rv").forEach(el => io.observe(el));
+
+  const audio = $("#audio"), mb = $("#music"); if (C.music) audio.src = C.music;
+  audio.onerror = () => mb.style.display = "none";
+  audio.onplay = () => mb.classList.add("on"); audio.onpause = () => mb.classList.remove("on");
+  mb.onclick = () => audio.paused ? audio.play().catch(() => {}) : audio.pause();
+  const intro = $("#intro"), ms = +(intro && intro.dataset.ms || 3000);
+  const finish = () => { if (!intro) return; intro.classList.add("gone"); document.body.classList.remove("locked"); document.body.classList.add("revealed"); window.onRevealed && window.onRevealed(); };
+  const open = () => { if (!intro || intro.classList.contains("open")) return; intro.classList.add("open"); window.onOpen && window.onOpen();
+    if (C.music) { mb.style.display = "flex"; audio.play().catch(() => {}); } setTimeout(finish, ms); };
+  $$("[data-open]").forEach(el => el.addEventListener("click", open));
+  $$("[data-skip]").forEach(el => el.addEventListener("click", e => { e.stopPropagation(); finish(); }));
+  if (/[?&]open\b/.test(location.search)) { intro && intro.classList.add("open"); finish(); }
+  if (/[?&]autoopen\b/.test(location.search)) setTimeout(open, 600);
+
+  const f = $("#f");
+  if (f) f.onsubmit = async e => {
+    e.preventDefault(); const fd = new FormData(f), btn = $("#send"); btn.disabled = true; btn.textContent = C.sendingWord || "Sending…";
+    try { if (C.rsvpUrl) await fetch(C.rsvpUrl, { method: "POST", mode: "no-cors", body: fd }); } catch (_) {}
+    const yes = fd.get("attending") === "Yes", n = esc(fd.get("name"));
+    $("#thx").innerHTML = (yes ? (C.thanksYes || "Thank you, {n}! We can't wait to celebrate with you.") : (C.thanksNo || "Thank you, {n}. You will be missed.")).replace("{n}", n);
+    f.classList.add("hide"); $("#thx").classList.remove("hide");
+  };
+})();
+
+</script>
+<script>/* hide music controls when the song file is missing */
+(function(){var a=document.getElementById('audio');if(!a||!a.getAttribute('src'))return;var p=new Audio();p.preload='metadata';
+p.onerror=function(){var e=document.getElementById('music');if(e)e.style.setProperty('display','none','important');};p.src=a.getAttribute('src');})();</script>
+</body>
+</html>
